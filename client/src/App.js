@@ -1,8 +1,7 @@
-
 function App() {
   return (
     <div>
-      <h1>Hello friend</h1>
+      <h1>Form builder app</h1>
     </div>
   );
 }
