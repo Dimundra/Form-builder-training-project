@@ -76,9 +76,9 @@ class Header extends React.Component {
     );
     return (
       <div className={classes.grow}>
-        <AppBar position='static' color='primary'>
+        <AppBar position='static'>
           <Container>
-            <Toolbar>
+            <Toolbar disableGutters={true}>
               <Button className={classes.logo_button}>
                 <LogoIcon />
                 <span style={{ marginLeft: '0.5rem' }}>Form builder</span>
