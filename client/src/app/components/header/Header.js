@@ -12,7 +12,7 @@ import { LogoIcon } from '../../svg/LogoIcon/LogoIcon.js';
 import { SignUpIcon } from '../../svg/SignUpIcon/SignUpIcon.js';
 import { SignInIcon } from '../../svg/SingInIcon/SignInIcon.js';
 import { Container } from '@material-ui/core';
-import { styles } from './Header.styles.js';
+import { styles } from './Header.MuiStyles.js';
 
 class Header extends React.Component {
   constructor(props) {
