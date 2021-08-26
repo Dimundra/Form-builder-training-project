@@ -6,7 +6,6 @@ class LogoIcon extends React.Component {
       <svg
         xmlns='http://www.w3.org/2000/svg'
         id='Layer_1'
-        enable-background='new 0 0 256 256'
         viewBox='0 0 256 256'
         width='50'
       >

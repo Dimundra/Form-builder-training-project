@@ -1,12 +1,14 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import {
+  Menu,
+  MenuItem,
+  IconButton,
+  AppBar,
+  Toolbar,
+  Button,
+  Grid,
+} from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { LogoIcon } from '../../svg/LogoIcon/LogoIcon.js';
 import { SignUpIcon } from '../../svg/SignUpIcon/SignUpIcon.js';

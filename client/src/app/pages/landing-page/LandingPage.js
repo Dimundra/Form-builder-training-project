@@ -15,18 +15,24 @@ class LandingPage extends React.Component {
         <Container>
           <Grid
             container
-            spacing={6}
-            justifyContent='center'
+            justifyContent='space-evenly'
             alignItems='center'
             direction='column'
+            wrap='nowrap'
             className={classes.mainContainer}
           >
-            <Grid item container justifyContent='space-around'>
-              <Box>
+            <Grid
+              item
+              container
+              justifyContent='space-around'
+              wrap='nowrap'
+              className={classes.iconsContainer}
+            >
+              <Box className={classes.starIcon}>
                 <ShootingStars />
               </Box>
               <Gear />
-              <Box>
+              <Box className={classes.starIcon}>
                 <ShootingStars />
               </Box>
             </Grid>

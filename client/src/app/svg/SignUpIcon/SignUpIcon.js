@@ -3,12 +3,7 @@ import React from 'react';
 class SignUpIcon extends React.Component {
   render() {
     return (
-      <svg
-        xmlns='http://www.w3.org/2000/svg'
-        enable-background='new 0 0 256 256'
-        viewBox='0 0 256 256'
-        width='30'
-      >
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' width='30'>
         <path
           d='m187.82 95.756c0 29.64-14.19 55.97-36.15 72.55-.75.57-1.52 1.13-2.29 1.67-14.81 10.49-32.91 16.65-52.44 16.65-13.36 0-26.04-2.88-37.47-8.06-5.29-2.39-10.31-5.29-15-8.61-1.11-.78-2.19-1.59-3.26-2.42-21.38-16.62-35.14-42.59-35.14-71.78 0-50.19 40.68-90.88 90.87-90.88s90.88 40.69 90.88 90.88z'
           fill='#5fcdff'
