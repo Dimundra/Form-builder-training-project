@@ -22,9 +22,13 @@ const styles = (theme) => {
       },
     },
     starIcon: {
+      flexShrink: '0',
       [theme.breakpoints.down('xs')]: {
         display: 'none',
       },
+    },
+    gearIcon: {
+      flexShrink: '0',
     },
   };
 };

@@ -31,7 +31,9 @@ class LandingPage extends React.Component {
               <Box className={classes.starIcon}>
                 <ShootingStars />
               </Box>
-              <Gear />
+              <Box className={classes.gearIcon}>
+                <Gear />
+              </Box>
               <Box className={classes.starIcon}>
                 <ShootingStars />
               </Box>
