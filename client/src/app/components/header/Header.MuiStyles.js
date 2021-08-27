@@ -2,6 +2,18 @@ const styles = (theme) => ({
   grow: {
     flexGrow: 1,
   },
+  signUpLinkDesktop: {
+    textDecoration: 'none',
+    color: 'black',
+  },
+  signInLinkDesktop: {
+    textDecoration: 'none',
+    color: 'white',
+  },
+  signUpInLinkMobile: {
+    textDecoration: 'none',
+    color: 'black',
+  },
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {

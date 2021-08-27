@@ -10,6 +10,7 @@ import {
   Grid,
 } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Link } from 'react-router-dom';
 import { LogoIcon } from '../../svg/LogoIcon/LogoIcon.js';
 import { SignUpIcon } from '../../svg/SignUpIcon/SignUpIcon.js';
 import { SignInIcon } from '../../svg/SingInIcon/SignInIcon.js';
@@ -53,26 +54,46 @@ class Header extends React.Component {
         onClose={handleMobileMenuClose}
       >
         <MenuItem>
-          <IconButton
-            disableRipple={true}
-            disableFocusRipple={true}
-            color='primary'
-            style={{ backgroundColor: 'transparent' }}
-          >
-            <SignUpIcon />
-          </IconButton>
-          <p>Sign Up</p>
+          <Link to='/sign-up' className={classes.signUpInLinkMobile}>
+            <Grid
+              container
+              item
+              direction='row'
+              alignItems='center'
+              justifyContent='space-evenly'
+            >
+              <IconButton
+                disableRipple={true}
+                disableFocusRipple={true}
+                color='primary'
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <SignUpIcon />
+              </IconButton>
+              <p>Sign Up</p>
+            </Grid>
+          </Link>
         </MenuItem>
         <MenuItem>
-          <IconButton
-            disableRipple={true}
-            disableFocusRipple={true}
-            color='inherit'
-            style={{ backgroundColor: 'transparent', paddingLeft: '15px' }}
-          >
-            <SignInIcon />
-          </IconButton>
-          <p>Sign In</p>
+          <Link to='/sign-in' className={classes.signUpInLinkMobile}>
+            <Grid
+              container
+              item
+              direction='row'
+              alignItems='center'
+              justifyContent='space-evenly'
+            >
+              <IconButton
+                disableRipple={true}
+                disableFocusRipple={true}
+                color='inherit'
+                style={{ backgroundColor: 'transparent', paddingLeft: '15px' }}
+              >
+                <SignInIcon />
+              </IconButton>
+              <p>Sign In</p>
+            </Grid>
+          </Link>
         </MenuItem>
       </Menu>
     );
@@ -89,23 +110,27 @@ class Header extends React.Component {
               <div className={classes.sectionDesktop}>
                 <Grid container spacing={3}>
                   <Grid item>
-                    <Button
-                      disableElevation={true}
-                      variant='contained'
-                      size='large'
-                    >
-                      Sign Up
-                    </Button>
+                    <Link to='/sign-up' className={classes.signUpLinkDesktop}>
+                      <Button
+                        disableElevation={true}
+                        variant='contained'
+                        size='large'
+                      >
+                        Sign up
+                      </Button>
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <Button
-                      disableElevation={true}
-                      variant='contained'
-                      color='secondary'
-                      size='large'
-                    >
-                      Sign in
-                    </Button>
+                    <Link to='sign-in' className={classes.signInLinkDesktop}>
+                      <Button
+                        disableElevation={true}
+                        variant='contained'
+                        color='secondary'
+                        size='large'
+                      >
+                        Sign in
+                      </Button>
+                    </Link>
                   </Grid>
                 </Grid>
               </div>
