@@ -20,33 +20,30 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      anchorEl: null,
-      mobileMoreAnchorEl: null,
+      respectiveElement: null,
     };
   }
 
   render() {
     const { classes } = this.props;
-    const isMobileMenuOpen = Boolean(this.state.mobileMoreAnchorEl);
+    const isMobileMenuOpen = Boolean(this.state.respectiveElement);
 
     const handleMobileMenuClose = () => {
       this.setState({
-        mobileMoreAnchorEl: null,
+        respectiveElement: null,
       });
     };
 
     const handleMobileMenuOpen = (event) => {
       this.setState({
-        mobileMoreAnchorEl: event.currentTarget,
+        respectiveElement: event.currentTarget,
       });
     };
 
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
+    const mobileMenu = (
       <Menu
-        anchorEl={this.state.mobileMoreAnchorEl}
+        anchorEl={this.state.respectiveElement}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        id={mobileMenuId}
         keepMounted
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMobileMenuOpen}
@@ -54,10 +51,10 @@ class Header extends React.Component {
       >
         <MenuItem>
           <IconButton
-            disableRipple={true}
-            disableFocusRipple={true}
+            disableRipple
+            disableFocusRipple
             color='primary'
-            style={{ backgroundColor: 'transparent' }}
+            className={classes.signUpMobileButton}
           >
             <SignUpIcon />
           </IconButton>
@@ -65,10 +62,10 @@ class Header extends React.Component {
         </MenuItem>
         <MenuItem>
           <IconButton
-            disableRipple={true}
-            disableFocusRipple={true}
+            disableRipple
+            disableFocusRipple
             color='inherit'
-            style={{ backgroundColor: 'transparent', paddingLeft: '15px' }}
+            className={classes.signInMobileButton}
           >
             <SignInIcon />
           </IconButton>
@@ -78,28 +75,24 @@ class Header extends React.Component {
     );
     return (
       <div className={classes.grow}>
-        <AppBar position='static' className={classes.backColor}>
+        <AppBar position='static' className={classes.headerBackgroundColor}>
           <Container>
-            <Toolbar disableGutters={true}>
-              <Button className={classes.logo_button}>
+            <Toolbar disableGutters>
+              <Button className={classes.logoButton}>
                 <LogoIcon />
-                <span style={{ marginLeft: '0.5rem' }}>Form builder</span>
+                <span className={classes.logoText}>Form builder</span>
               </Button>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
                 <Grid container spacing={3}>
                   <Grid item>
-                    <Button
-                      disableElevation={true}
-                      variant='contained'
-                      size='large'
-                    >
+                    <Button disableElevation variant='contained' size='large'>
                       Sign Up
                     </Button>
                   </Grid>
                   <Grid item>
                     <Button
-                      disableElevation={true}
+                      disableElevation
                       variant='contained'
                       color='secondary'
                       size='large'
@@ -110,20 +103,14 @@ class Header extends React.Component {
                 </Grid>
               </div>
               <div className={classes.sectionMobile}>
-                <IconButton
-                  aria-label='show more'
-                  aria-controls={mobileMenuId}
-                  aria-haspopup='true'
-                  onClick={handleMobileMenuOpen}
-                  color='inherit'
-                >
+                <IconButton onClick={handleMobileMenuOpen} color='inherit'>
                   <MoreIcon />
                 </IconButton>
               </div>
             </Toolbar>
           </Container>
         </AppBar>
-        {renderMobileMenu}
+        {mobileMenu}
       </div>
     );
   }
