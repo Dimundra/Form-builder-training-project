@@ -16,7 +16,6 @@ theme = responsiveFontSizes(theme);
 class App extends React.Component {
   render() {
     return (
-      <div>
         <ThemeProvider theme={theme}>
           <Router>
             <Switch>
@@ -32,7 +31,6 @@ class App extends React.Component {
             </Switch>
           </Router>
         </ThemeProvider>
-      </div>
     );
   }
 }

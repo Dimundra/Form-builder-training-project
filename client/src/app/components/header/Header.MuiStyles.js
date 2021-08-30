@@ -27,12 +27,22 @@ const styles = (theme) => ({
       display: 'none',
     },
   },
-  logo_button: {
+  logoButton: {
     borderRadius: '0',
     color: 'white',
   },
-  backColor: {
+  logoText: {
+    marginLeft: '0.5rem',
+  },
+  headerBackgroundColor: {
     backgroundImage: 'linear-gradient(270deg,#4668b5,#b567dc,#e04951)',
+  },
+  signUpMobileButton: {
+    backgroundColor: 'transparent',
+  },
+  signInMobileButton: {
+    backgroundColor: 'transparent',
+    paddingLeft: '15px',
   },
 });
 
