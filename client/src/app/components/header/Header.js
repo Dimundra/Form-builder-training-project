@@ -10,6 +10,7 @@ import {
   Grid,
 } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Link } from 'react-router-dom';
 import { LogoIcon } from '../../svg/LogoIcon/LogoIcon.js';
 import { SignUpIcon } from '../../svg/SignUpIcon/SignUpIcon.js';
 import { SignInIcon } from '../../svg/SingInIcon/SignInIcon.js';
@@ -50,27 +51,47 @@ class Header extends React.Component {
         onClose={handleMobileMenuClose}
       >
         <MenuItem>
-          <IconButton
-            disableRipple
-            disableFocusRipple
-            color='primary'
-            className={classes.signUpMobileButton}
-          >
-            <SignUpIcon />
-          </IconButton>
-          <p>Sign Up</p>
+          <Link to='/sign-up' className={classes.signUpInLinkMobile}>
+            <Grid
+              container
+              item
+              direction='row'
+              alignItems='center'
+              justifyContent='space-evenly'
+            >
+              <IconButton
+                disableRipple
+                disableFocusRipple
+                color='primary'
+                className={classes.signUpMobileButton}
+              >
+                <SignUpIcon />
+              </IconButton>
+              <p>Sign Up</p>
+            </Grid>
+          </Link>
         </MenuItem>
         <MenuItem>
-          <IconButton
-            disableRipple
-            disableFocusRipple
-            color='inherit'
-            className={classes.signInMobileButton}
-          >
-            <SignInIcon />
-          </IconButton>
-          <p>Sign In</p>
-        </MenuItem>
+          <Link to='/sign-in' className={classes.signUpInLinkMobile}>
+            <Grid
+              container
+              item
+              direction='row'
+              alignItems='center'
+              justifyContent='space-evenly'
+            >
+              <IconButton
+                disableRipple
+                disableFocusRipple
+                color='inherit'
+                className={classes.signInMobileButton}
+              >
+                <SignInIcon />
+              </IconButton>
+              <p>Sign In</p>
+            </Grid>
+          </Link>
+        <MenuItem>         
       </Menu>
     );
     return (
@@ -86,19 +107,23 @@ class Header extends React.Component {
               <div className={classes.sectionDesktop}>
                 <Grid container spacing={3}>
                   <Grid item>
-                    <Button disableElevation variant='contained' size='large'>
-                      Sign Up
-                    </Button>
+                    <Link to='/sign-up' className={classes.signUpLinkDesktop}>
+                      <Button disableElevation variant='contained' size='large'>
+                        Sign Up
+                      </Button>
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <Button
-                      disableElevation
-                      variant='contained'
-                      color='secondary'
-                      size='large'
-                    >
-                      Sign in
-                    </Button>
+                    <Link to='sign-in' className={classes.signInLinkDesktop}>
+                      <Button
+                        disableElevation
+                        variant='contained'
+                        color='secondary'
+                        size='large'
+                      >
+                        Sign in
+                      </Button>
+                    </Link>
                   </Grid>
                 </Grid>
               </div>
