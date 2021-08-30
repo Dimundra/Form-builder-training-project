@@ -91,7 +91,7 @@ class Header extends React.Component {
               <p>Sign In</p>
             </Grid>
           </Link>
-        <MenuItem>         
+        </MenuItem>         
       </Menu>
     );
     return (
