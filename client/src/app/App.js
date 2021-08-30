@@ -13,11 +13,9 @@ theme = responsiveFontSizes(theme);
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <ThemeProvider theme={theme}>
-          <LandingPage />
-        </ThemeProvider>
-      </div>
+      <ThemeProvider theme={theme}>
+        <LandingPage />
+      </ThemeProvider>
     );
   }
 }
