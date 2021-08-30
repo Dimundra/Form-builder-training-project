@@ -4,54 +4,52 @@ import React from 'react';
 import Header from '../../components/header/Header.js';
 import { ShootingStars } from '../../svg/ShootingStars/ShootingStars.js';
 import { Gear } from '../../svg/Gear/Gear.js';
-import { styles } from './LandingPage.MuiStyles.js';
+import { useStyles } from './LandingPage.MuiStyles.js';
 
-class LandingPage extends React.Component {
-  render() {
-    const { classes } = this.props;
-    return (
-      <>
-        <Header />
-        <Container>
+function LandingPage() {
+  const classes = useStyles();
+  return (
+    <>
+      <Header />
+      <Container>
+        <Grid
+          container
+          justifyContent='space-evenly'
+          alignItems='center'
+          direction='column'
+          wrap='nowrap'
+          className={classes.mainContainer}
+        >
           <Grid
+            item
             container
-            justifyContent='space-evenly'
-            alignItems='center'
-            direction='column'
+            justifyContent='space-around'
             wrap='nowrap'
-            className={classes.mainContainer}
+            className={classes.iconsContainer}
           >
-            <Grid
-              item
-              container
-              justifyContent='space-around'
-              wrap='nowrap'
-              className={classes.iconsContainer}
-            >
-              <Box className={classes.starIcon}>
-                <ShootingStars />
-              </Box>
-              <Box className={classes.gearIcon}>
-                <Gear />
-              </Box>
-              <Box className={classes.starIcon}>
-                <ShootingStars />
-              </Box>
-            </Grid>
-            <Grid item>
-              <Typography
-                variant='h3'
-                align='center'
-                className={classes.mainText}
-              >
-                THE SUPERIOR FORM BUILDER DESIGNED SPECIFICALLY FOR YOU
-              </Typography>
-            </Grid>
+            <Box className={classes.starIcon}>
+              <ShootingStars />
+            </Box>
+            <Box className={classes.gearIcon}>
+              <Gear />
+            </Box>
+            <Box className={classes.starIcon}>
+              <ShootingStars />
+            </Box>
           </Grid>
-        </Container>
-      </>
-    );
-  }
+          <Grid item>
+            <Typography
+              variant='h3'
+              align='center'
+              className={classes.mainText}
+            >
+              THE SUPERIOR FORM BUILDER DESIGNED SPECIFICALLY FOR YOU
+            </Typography>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
 }
 
-export default withStyles(styles)(LandingPage);
+export default LandingPage;

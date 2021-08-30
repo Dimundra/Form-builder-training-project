@@ -1,4 +1,6 @@
-const styles = (theme) => {
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => {
   return {
     mainContainer: {
       height: 'calc(100vh - 64px)',
@@ -31,6 +33,6 @@ const styles = (theme) => {
       flexShrink: '0',
     },
   };
-};
+});
 
-export { styles };
+export { useStyles };
