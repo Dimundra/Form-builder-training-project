@@ -1,5 +1,4 @@
 import { Box, Container, Grid, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import Header from '../../components/header/Header.js';
 import { ShootingStars } from '../../svg/ShootingStars/ShootingStars.js';
