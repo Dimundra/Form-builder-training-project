@@ -16,21 +16,21 @@ theme = responsiveFontSizes(theme);
 class App extends React.Component {
   render() {
     return (
-        <ThemeProvider theme={theme}>
-          <Router>
-            <Switch>
-              <Route exact path='/'>
-                <LandingPage />
-              </Route>
-              <Route path='/sign-up'>
-                <SignUpPage />
-              </Route>
-              <Route path='/sign-in'>
-                <SignInPage />
-              </Route>
-            </Switch>
-          </Router>
-        </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <Route exact path='/'>
+              <LandingPage />
+            </Route>
+            <Route path='/sign-up'>
+              <SignUpPage />
+            </Route>
+            <Route path='/sign-in'>
+              <SignInPage />
+            </Route>
+          </Switch>
+        </Router>
+      </ThemeProvider>
     );
   }
 }
