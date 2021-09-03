@@ -1,6 +1,5 @@
 import { Box, Container, Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import Header from '../../components/header/Header.js';
 import { ShootingStars } from '../../svg/ShootingStars/ShootingStars.js';
 import { Gear } from '../../svg/Gear/Gear.js';
 import { useStyles } from './LandingPage.MuiStyles.js';
@@ -9,7 +8,6 @@ function LandingPage() {
   const classes = useStyles();
   return (
     <>
-      <Header />
       <Container>
         <Grid
           container
