@@ -3,8 +3,10 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => {
   return {
     mainContainer: {
+      overflow: 'hidden',
+    },
+    mainGridContainer: {
       height: 'calc(100vh - 64px)',
-      paddingBottom: '60px',
     },
     mainText: {
       backgroundImage: 'linear-gradient(90deg,#12c2e9,#c471ed,#f64f59)',

@@ -1,6 +1,6 @@
 function Gear() {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='200'>
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='230'>
       <path
         d='m453.949219 74.050781c0 17.675781-14.328125 32-32 32-17.675781 0-32-14.324219-32-32 0-17.671875 14.324219-32 32-32 17.671875 0 32 14.328125 32 32zm0 0'
         fill='#f5737f'
