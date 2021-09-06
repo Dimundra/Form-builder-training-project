@@ -1,16 +1,17 @@
 import React from 'react';
 import Header from './components/Header/Header.js';
-import LandingPage from './pages/landing-page/LandingPage.js';
+import LandingPage from './pages/LandingPage/LandingPage.js';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage.js';
 import SignUpPage from './pages/SignUpPage/SignUpPage.js';
 import SignInPage from './pages/SignInPage/SignInPage.js';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.scss';
 
 class App extends React.Component {
   render() {
     return (
       <>
-        <Router>
+        <BrowserRouter>
           <Header />
           <Switch>
             <Route exact path='/'>
@@ -22,8 +23,11 @@ class App extends React.Component {
             <Route path='/sign-in'>
               <SignInPage />
             </Route>
+            <Route path='*'>
+              <NotFoundPage />
+            </Route>
           </Switch>
-        </Router>
+        </BrowserRouter>
       </>
     );
   }
