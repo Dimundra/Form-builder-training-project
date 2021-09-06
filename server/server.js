@@ -1,7 +1,9 @@
 const Hapi = require('@hapi/hapi');
 
+const PORT = 3002;
+
 const server = Hapi.server({
-  port: 3002,
+  port: PORT,
   host: '0.0.0.0',
 });
 
@@ -9,7 +11,7 @@ const server = Hapi.server({
   await server.register(require('@hapi/inert'));
 
   await server.start();
-  console.log('server has started on port 3002...');
+  console.log(`server has started on port ${PORT}...`);
 })();
 
 server.route({
