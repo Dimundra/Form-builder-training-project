@@ -1,23 +1,18 @@
 import React from 'react';
-import LandingPage from './pages/landing-page/LandingPage.js';
+import Header from './components/Header/Header.js';
+import LandingPage from './pages/LandingPage/LandingPage.js';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage.js';
 import SignUpPage from './pages/SignUpPage/SignUpPage.js';
 import SignInPage from './pages/SignInPage/SignInPage.js';
-import {
-  createTheme,
-  responsiveFontSizes,
-  ThemeProvider,
-} from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.scss';
-
-let theme = createTheme();
-theme = responsiveFontSizes(theme);
 
 class App extends React.Component {
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <Router>
+      <>
+        <BrowserRouter>
+          <Header />
           <Switch>
             <Route exact path='/'>
               <LandingPage />
@@ -28,9 +23,12 @@ class App extends React.Component {
             <Route path='/sign-in'>
               <SignInPage />
             </Route>
+            <Route path='*'>
+              <NotFoundPage />
+            </Route>
           </Switch>
-        </Router>
-      </ThemeProvider>
+        </BrowserRouter>
+      </>
     );
   }
 }

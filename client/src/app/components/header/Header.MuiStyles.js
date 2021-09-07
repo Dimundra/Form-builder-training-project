@@ -27,12 +27,16 @@ const styles = (theme) => ({
       display: 'none',
     },
   },
+  logoLink: {
+    textDecoration: 'none',
+  },
   logoButton: {
     borderRadius: '0',
     color: 'white',
   },
   logoText: {
     marginLeft: '0.5rem',
+    textDecoration: 'none',
   },
   headerBackgroundColor: {
     backgroundImage: 'linear-gradient(270deg,#4668b5,#b567dc,#e04951)',

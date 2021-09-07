@@ -99,10 +99,12 @@ class Header extends React.Component {
         <AppBar position='static' className={classes.headerBackgroundColor}>
           <Container>
             <Toolbar disableGutters>
-              <Button className={classes.logoButton}>
-                <LogoIcon />
-                <span className={classes.logoText}>Form builder</span>
-              </Button>
+              <Link to='/' className={classes.logoLink}>
+                <Button className={classes.logoButton}>
+                  <LogoIcon />
+                  <span className={classes.logoText}>Form builder</span>
+                </Button>
+              </Link>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
                 <Grid container spacing={3}>
