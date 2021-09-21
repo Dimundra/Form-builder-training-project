@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hapi/boom": "^9.1.4",
     "@hapi/hapi": "^20.1.5",
     "@hapi/inert": "^6.0.3",
     "hapi-auth-jwt2": "^10.2.0",

@@ -1,4 +1,5 @@
 const Hapi = require('@hapi/hapi');
+const Boom = require('@hapi/boom');
 const JWT = require('jsonwebtoken');
 
 const PORT = 3002;
@@ -56,42 +57,30 @@ const validate = async function (decoded, request, h) {
       method: 'POST',
       path: '/login',
       handler: (request, h) => {
-        // extracting encoded form data from Authorization header
-        console.log(
-          'request.headers.authorization',
-          request.headers.authorization
-        );
-        const encodedCredentials = request.headers.authorization.split(' ')[1];
-        console.log('encodedCredentials', encodedCredentials);
-        // decoding form data to an array of the form [ email, password ]
-        const decodedCredentials = Buffer.from(encodedCredentials, 'base64')
-          .toString('utf-8')
-          .split(':');
+        const email = request.payload.email;
+        const password = request.payload.password;
 
-        console.log('decodedCredentials', decodedCredentials);
+        if (email === '' || password === '') {
+          return Boom.unauthorized(
+            'Sorry, but username or password is wrong! Try again!'
+          );
+        }
 
-        let isUserValid = false;
         for (const user of users) {
-          if (
-            decodedCredentials[0] === user.email &&
-            decodedCredentials[1] === user.password
-          ) {
-            isUserValid = true;
+          if (email === user.email && password === user.password) {
+            const userCredentials = user;
+            const payloadForJWT = { id: userCredentials.id };
+            const expirationTimeOfJWT = '30000ms'; // 30 sec
+            const token = JWT.sign(payloadForJWT, secret, {
+              expiresIn: expirationTimeOfJWT,
+            });
+            return { token: token };
           }
         }
 
-        if (isUserValid) {
-          const userCredentials = users.find(
-            (user) => decodedCredentials[0] === user.email
-          );
-          const payload = { id: userCredentials.id };
-          const token = JWT.sign(payload, secret, { expiresIn: '30000ms' });
-          return { token: token };
-        } else {
-          return {
-            error: 'Sorry, but username or password is wrong! Try again!',
-          };
-        }
+        return Boom.unauthorized(
+          'Sorry, but username or password is wrong! Try again!'
+        );
       },
     },
   ]);
