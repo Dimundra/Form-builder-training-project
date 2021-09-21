@@ -53,24 +53,22 @@ const validate = async function (decoded, request, h) {
 
   server.route([
     {
-      method: 'GET',
-      path: '/{file*}',
-      handler: {
-        directory: {
-          path: '../client/build/',
-        },
-      },
-    },
-    {
       method: 'POST',
       path: '/login',
       handler: (request, h) => {
         // extracting encoded form data from Authorization header
+        console.log(
+          'request.headers.authorization',
+          request.headers.authorization
+        );
         const encodedCredentials = request.headers.authorization.split(' ')[1];
+        console.log('encodedCredentials', encodedCredentials);
         // decoding form data to an array of the form [ email, password ]
         const decodedCredentials = Buffer.from(encodedCredentials, 'base64')
           .toString('utf-8')
           .split(':');
+
+        console.log('decodedCredentials', decodedCredentials);
 
         let isUserValid = false;
         for (const user of users) {
