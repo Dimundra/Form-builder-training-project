@@ -94,16 +94,6 @@ const validate = async function (decoded, request, h) {
         }
       },
     },
-    {
-      method: 'GET',
-      path: '/restricted-path',
-      handler: (request, h) => {
-        return '<h1>Welcome, authenticated user</h1>';
-      },
-      options: {
-        auth: 'jwt',
-      },
-    },
   ]);
 
   await server.start();
