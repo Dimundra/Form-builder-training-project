@@ -18,7 +18,7 @@ function NotFoundPage() {
           <NotFoundIcon />
         </Grid>
         <Grid item>
-          <Typography variant='h3' align='center' className={classes.mainText}>
+          <Typography variant='h4' align='center' className={classes.mainText}>
             Sorry! Unfortunately such page doesn't exist.
           </Typography>
         </Grid>
