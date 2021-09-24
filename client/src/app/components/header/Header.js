@@ -10,12 +10,14 @@ import {
   Grid,
 } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
 import { Link } from 'react-router-dom';
 import { LogoIcon } from '../../svg/LogoIcon/LogoIcon.js';
 import { SignUpIcon } from '../../svg/SignUpIcon/SignUpIcon.js';
 import { SignInIcon } from '../../svg/SingInIcon/SignInIcon.js';
 import { Container } from '@material-ui/core';
 import { styles } from './Header.MuiStyles.js';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
   constructor(props) {
@@ -107,27 +109,49 @@ class Header extends React.Component {
               </Link>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
-                <Grid container spacing={3}>
-                  <Grid item>
-                    <Link to='/sign-up' className={classes.signUpLinkDesktop}>
+                {this.props.isAuthenticated ? (
+                  <Grid container alignItems='center' spacing={3}>
+                    <Grid item>
+                      <IconButton>
+                        <AccountBoxRoundedIcon
+                          htmlColor='white'
+                          fontSize='large'
+                        />
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
                       <Button disableElevation variant='contained' size='large'>
-                        Sign Up
+                        Log out
                       </Button>
-                    </Link>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Link to='sign-in' className={classes.signInLinkDesktop}>
-                      <Button
-                        disableElevation
-                        variant='contained'
-                        color='secondary'
-                        size='large'
-                      >
-                        Sign in
-                      </Button>
-                    </Link>
+                ) : (
+                  <Grid container spacing={3}>
+                    <Grid item>
+                      <Link to='/sign-up' className={classes.signUpLinkDesktop}>
+                        <Button
+                          disableElevation
+                          variant='contained'
+                          size='large'
+                        >
+                          Sign Up
+                        </Button>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link to='sign-in' className={classes.signInLinkDesktop}>
+                        <Button
+                          disableElevation
+                          variant='contained'
+                          color='secondary'
+                          size='large'
+                        >
+                          Sign in
+                        </Button>
+                      </Link>
+                    </Grid>
                   </Grid>
-                </Grid>
+                )}
               </div>
               <div className={classes.sectionMobile}>
                 <IconButton onClick={handleMobileMenuOpen} color='inherit'>
@@ -143,4 +167,16 @@ class Header extends React.Component {
   }
 }
 
-export default withStyles(styles)(Header);
+function mapStateToProps(state) {
+  console.log(state);
+  return {
+    isAuthenticated: state.authReducer.isAuthenticated,
+  };
+}
+
+//add material styles
+let wrappedHeader = withStyles(styles)(Header);
+
+wrappedHeader = connect(mapStateToProps, null)(wrappedHeader);
+
+export default wrappedHeader;
