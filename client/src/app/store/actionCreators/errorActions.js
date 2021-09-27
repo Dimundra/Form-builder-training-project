@@ -9,12 +9,12 @@ function setValidationError(errorMessage) {
   };
 }
 
-function setRequestError(statusCode, errorMessage) {
+function setRequestError(errorMessage, statusCode) {
   return {
     type: actionTypes.SET_REQUEST_ERROR,
     payload: {
-      statusCode,
       errorMessage,
+      statusCode,
     },
   };
 }

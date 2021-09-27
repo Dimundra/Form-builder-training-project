@@ -102,8 +102,8 @@ class SignInPage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isError: state.errorReducer.validationError.isError,
-    errorMessage: state.errorReducer.validationError.errorMessage,
+    isError: state.errorReducer.isError,
+    errorMessage: state.errorReducer.errorMessage,
   };
 }
 

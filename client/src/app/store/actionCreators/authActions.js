@@ -33,7 +33,7 @@ function login(email, password, redirect) {
         if (statusCode === 401) {
           dispatch(setValidationError(data.message));
         } else {
-          dispatch(setRequestError(statusCode, data.message));
+          dispatch(setRequestError(data.message, statusCode));
         }
       });
   };

@@ -1,15 +1,9 @@
 import { actionTypes } from '../actionTypes.js';
 
 const initialState = {
-  validationError: {
-    isError: false,
-    errorMessage: '',
-  },
-  requestError: {
-    isError: false,
-    errorMessage: '',
-    statusCode: undefined,
-  },
+  isError: false,
+  errorMessage: '',
+  statusCode: undefined,
 };
 
 function errorReducer(state = initialState, action) {
@@ -17,20 +11,16 @@ function errorReducer(state = initialState, action) {
     case actionTypes.SET_VALIDATION_ERROR:
       return {
         ...state,
-        validationError: {
-          isError: true,
-          errorMessage: action.payload.errorMessage,
-        },
+        isError: true,
+        errorMessage: action.payload.errorMessage,
       };
 
     case actionTypes.SET_REQUEST_ERROR:
       return {
         ...state,
-        requestError: {
-          isError: true,
-          statusCode: action.payload.statusCode,
-          errorMessage: action.payload.errorMessage,
-        },
+        isError: true,
+        errorMessage: action.payload.errorMessage,
+        statusCode: action.payload.statusCode,
       };
 
     case actionTypes.CLEAN_ERRORS:
