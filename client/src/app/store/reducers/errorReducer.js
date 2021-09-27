@@ -33,7 +33,7 @@ function errorReducer(state = initialState, action) {
         },
       };
 
-    case actionTypes.CLEAR_ERRROS:
+    case actionTypes.CLEAN_ERRORS:
       return {
         ...initialState,
       };

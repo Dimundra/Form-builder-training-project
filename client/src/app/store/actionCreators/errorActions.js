@@ -19,10 +19,10 @@ function setRequestError(statusCode, errorMessage) {
   };
 }
 
-function clearErrors() {
+function cleanErrors() {
   return {
-    type: actionTypes.CLEAR_ERRROS,
+    type: actionTypes.CLEAN_ERRORS,
   };
 }
 
-export { setValidationError, setRequestError, clearErrors };
+export { setValidationError, setRequestError, cleanErrors };

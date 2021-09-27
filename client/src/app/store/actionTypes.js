@@ -4,7 +4,7 @@ const actionTypes = {
   //errors
   SET_VALIDATION_ERROR: 'SET_VALIDATION_ERROR',
   SET_REQUEST_ERROR: 'SET_REQUEST_ERROR',
-  CLEAR_ERRROS: 'CLEAR_ERRROS',
+  CLEAN_ERRORS: 'CLEAN_ERRORS',
 };
 
 export { actionTypes };

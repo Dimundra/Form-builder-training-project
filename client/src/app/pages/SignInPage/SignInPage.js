@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { login } from '../../store/actionCreators/authActions.js';
 import {
   setValidationError,
-  clearErrors,
+  cleanErrors,
 } from '../../store/actionCreators/errorActions.js';
 import { withRouter } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ class SignInPage extends React.Component {
     this.setState({
       [type]: e.target.value,
     });
-    this.props.clearErrors();
+    this.props.cleanErrors();
   }
 
   handleSubmit() {
@@ -110,7 +110,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   login,
   setValidationError,
-  clearErrors,
+  cleanErrors,
 };
 
 //add material styles
