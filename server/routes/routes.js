@@ -1,12 +1,6 @@
-const loginHandler = require('../controllers/userController.js');
+const userRoutes = require('./userRoutes.js');
 
-const loginRoute = {
-  method: 'POST',
-  path: '/login',
-  handler: (request, h) => loginHandler(request, h),
-  options: {
-    cors: true,
-  },
-};
+let routes = [userRoutes];
+routes = routes.flat();
 
-module.exports = loginRoute;
+module.exports = routes;

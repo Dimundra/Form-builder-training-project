@@ -1,6 +1,6 @@
 const Hapi = require('@hapi/hapi');
 const validate = require('./services/tokenValidation.js');
-const loginRoute = require('./routes/routes.js');
+const routes = require('./routes/routes.js');
 const secret = require('./const.js');
 
 const PORT = 3002;
@@ -25,7 +25,7 @@ const server = Hapi.server({
     validate,
   });
 
-  server.route([loginRoute]);
+  server.route(routes);
 
   await server.start();
   console.log(`server has started on port ${PORT}...`);
