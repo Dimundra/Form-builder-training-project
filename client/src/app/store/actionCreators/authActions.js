@@ -13,7 +13,7 @@ function setToken(token) {
   };
 }
 
-function initializeAuthentication(email, password, redirect) {
+function login(email, password, redirect) {
   return function (dispatch) {
     axios
       .post(`${port}/login`, {
@@ -39,4 +39,4 @@ function initializeAuthentication(email, password, redirect) {
   };
 }
 
-export { setToken, initializeAuthentication };
+export { setToken, login };

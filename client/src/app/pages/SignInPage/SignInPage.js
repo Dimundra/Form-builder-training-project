@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { styles } from './SignInPage.MuiStyles.js';
 import { validationSchema } from './validation/validationSchema.js';
 import { connect } from 'react-redux';
-import { initializeAuthentication } from '../../store/actionCreators/authActions.js';
+import { login } from '../../store/actionCreators/authActions.js';
 import {
   setValidationError,
   clearErrors,
@@ -38,7 +38,7 @@ class SignInPage extends React.Component {
       .validate({ email: this.state.email, password: this.state.password })
       .then(({ email, password }) => {
         const redirect = this.props.history.push;
-        this.props.initializeAuthentication(email, password, redirect);
+        this.props.login(email, password, redirect);
       })
       .catch((error) => {
         this.props.setValidationError(error.message);
@@ -108,7 +108,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  initializeAuthentication,
+  login,
   setValidationError,
   clearErrors,
 };
