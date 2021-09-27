@@ -24,7 +24,6 @@ function login(email, password, redirect) {
         const token = response.data?.token;
         dispatch(setToken(token));
         redirect('/cabinet');
-        console.log('I am here');
       })
       .catch((error) => {
         const statusCode = error.response.status;
