@@ -3,6 +3,7 @@ const validateToken = async function (decoded, request, h) {
   for (const user of users) {
     if (user.id === decoded.id) {
       isValid = true;
+      return { isValid };
     }
   }
 
