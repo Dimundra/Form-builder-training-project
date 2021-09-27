@@ -1,3 +1,3 @@
-const secret = 'owieuricmudfh';
+const SECRET = 'owieuricmudfh';
 
-module.exports = secret;
+module.exports = SECRET;
