@@ -1,4 +1,4 @@
-const loginHandler = require('../controllers/controller.js');
+const loginHandler = require('../controllers/userController.js');
 
 const loginRoute = {
   method: 'POST',
