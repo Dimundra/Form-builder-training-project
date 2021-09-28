@@ -1,17 +1,8 @@
 import { actionTypes } from '../actionTypes.js';
 
-function setValidationError(errorMessage) {
+function setError(errorMessage, statusCode) {
   return {
-    type: actionTypes.SET_VALIDATION_ERROR,
-    payload: {
-      errorMessage,
-    },
-  };
-}
-
-function setRequestError(errorMessage, statusCode) {
-  return {
-    type: actionTypes.SET_REQUEST_ERROR,
+    type: actionTypes.SET_ERROR,
     payload: {
       errorMessage,
       statusCode,
@@ -25,4 +16,4 @@ function cleanErrors() {
   };
 }
 
-export { setValidationError, setRequestError, cleanErrors };
+export { setError, cleanErrors };

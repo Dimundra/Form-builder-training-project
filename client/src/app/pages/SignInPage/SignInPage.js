@@ -12,7 +12,7 @@ import { validationSchema } from './validation/validationSchema.js';
 import { connect } from 'react-redux';
 import { login } from '../../store/actionCreators/authActions.js';
 import {
-  setValidationError,
+  setError,
   cleanErrors,
 } from '../../store/actionCreators/errorActions.js';
 import { withRouter } from 'react-router-dom';
@@ -45,7 +45,7 @@ class SignInPage extends React.Component {
         this.props.login(email, password, redirect);
       })
       .catch((error) => {
-        this.props.setValidationError(error.message);
+        this.props.setError(error.message);
       });
   }
 
@@ -117,7 +117,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   login,
-  setValidationError,
+  setError,
   cleanErrors,
 };
 
