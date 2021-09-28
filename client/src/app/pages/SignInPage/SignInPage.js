@@ -20,6 +20,10 @@ import { withRouter } from 'react-router-dom';
 class SignInPage extends React.Component {
   constructor(props) {
     super(props);
+    this.STATE_TYPES = {
+      EMAIL: 'email',
+      PASSWORD: 'password',
+    };
     this.state = {
       email: '',
       password: '',
@@ -68,7 +72,9 @@ class SignInPage extends React.Component {
                   variant='outlined'
                   error={this.props.isError}
                   value={this.state.email}
-                  onChange={(e) => this.handleFormChange(e, 'email')}
+                  onChange={(e) =>
+                    this.handleFormChange(e, this.STATE_TYPES.EMAIL)
+                  }
                 />
               </Grid>
               <Grid item>
@@ -79,7 +85,9 @@ class SignInPage extends React.Component {
                   label='password'
                   variant='outlined'
                   value={this.state.password}
-                  onChange={(e) => this.handleFormChange(e, 'password')}
+                  onChange={(e) =>
+                    this.handleFormChange(e, this.STATE_TYPES.PASSWORD)
+                  }
                 />
               </Grid>
               <Grid item>
