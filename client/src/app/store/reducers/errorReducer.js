@@ -8,16 +8,8 @@ const initialState = {
 
 function errorReducer(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.SET_VALIDATION_ERROR:
+    case actionTypes.SET_ERROR:
       return {
-        ...state,
-        isError: true,
-        errorMessage: action.payload.errorMessage,
-      };
-
-    case actionTypes.SET_REQUEST_ERROR:
-      return {
-        ...state,
         isError: true,
         errorMessage: action.payload.errorMessage,
         statusCode: action.payload.statusCode,
