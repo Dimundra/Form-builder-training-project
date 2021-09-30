@@ -21,18 +21,17 @@ function login(email, password, redirect) {
         password,
       })
       .then((response) => {
-        const token = response.data?.token;
+        const { token } = response.data;
         dispatch(setToken(token));
         redirect('/cabinet');
       })
       .catch((error) => {
-        const statusCode = error.response.status;
-        const data = error.response.data;
+        const { statusCode, message } = error.response.data;
 
         if (statusCode === 401) {
-          dispatch(setError(data.message));
+          dispatch(setError(message));
         } else {
-          dispatch(setError(data.message, statusCode));
+          dispatch(setError(message, statusCode));
         }
       });
   };
