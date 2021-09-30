@@ -6,4 +6,8 @@ const loginHandler = (request, h) => {
   return authenticateUser(email, password);
 };
 
-module.exports = loginHandler;
+const cabinetPageHandler = (request, h) => {
+  return 'Here should be the list of the constructed forms!';
+};
+
+module.exports = { loginHandler, cabinetPageHandler };
