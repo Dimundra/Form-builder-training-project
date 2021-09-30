@@ -1,5 +1,8 @@
 const Joi = require('joi');
-const loginHandler = require('../controllers/userController.js');
+const {
+  loginHandler,
+  cabinetPageHandler,
+} = require('../controllers/userController');
 
 const loginRoute = {
   method: 'POST',
@@ -16,4 +19,13 @@ const loginRoute = {
   },
 };
 
-module.exports = [loginRoute];
+const cabinetRoute = {
+  method: 'GET',
+  path: '/cabinet',
+  handler: (request, h) => cabinetPageHandler(request, h),
+  options: {
+    auth: 'jwt',
+  },
+};
+
+module.exports = [loginRoute, cabinetRoute];
