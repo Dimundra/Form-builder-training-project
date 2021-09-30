@@ -41,7 +41,7 @@ class SignInPage extends React.Component {
     validationSchema
       .validate({ email: this.state.email, password: this.state.password })
       .then(({ email, password }) => {
-        const redirect = this.props.history.push;
+        const { push: redirect } = this.props.history;
         this.props.login(email, password, redirect);
       })
       .catch((error) => {
@@ -109,9 +109,10 @@ class SignInPage extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const { isError, errorMessage } = state.errorReducer;
   return {
-    isError: state.errorReducer.isError,
-    errorMessage: state.errorReducer.errorMessage,
+    isError,
+    errorMessage,
   };
 }
 
