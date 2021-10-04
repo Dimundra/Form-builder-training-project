@@ -5,7 +5,7 @@ function NotFoundIcon() {
       id='_x33_0'
       enable-background='new 0 0 62 62'
       viewBox='0 0 62 62'
-      width='300px'
+      width='250px'
     >
       <g>
         <g>
