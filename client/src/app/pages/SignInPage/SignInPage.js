@@ -12,7 +12,7 @@ import { validationSchema } from './validation/validationSchema.js';
 import { connect } from 'react-redux';
 import { login } from '../../store/actionCreators/authActions.js';
 import {
-  setValidationError,
+  setError,
   cleanErrors,
 } from '../../store/actionCreators/errorActions.js';
 import { withRouter } from 'react-router-dom';
@@ -20,6 +20,10 @@ import { withRouter } from 'react-router-dom';
 class SignInPage extends React.Component {
   constructor(props) {
     super(props);
+    this.STATE_TYPES = {
+      EMAIL: 'email',
+      PASSWORD: 'password',
+    };
     this.state = {
       email: '',
       password: '',
@@ -41,7 +45,7 @@ class SignInPage extends React.Component {
         this.props.login(email, password, redirect);
       })
       .catch((error) => {
-        this.props.setValidationError(error.message);
+        this.props.setError(error.message);
       });
   }
 
@@ -68,7 +72,9 @@ class SignInPage extends React.Component {
                   variant='outlined'
                   error={this.props.isError}
                   value={this.state.email}
-                  onChange={(e) => this.handleFormChange(e, 'email')}
+                  onChange={(e) =>
+                    this.handleFormChange(e, this.STATE_TYPES.EMAIL)
+                  }
                 />
               </Grid>
               <Grid item>
@@ -79,7 +85,9 @@ class SignInPage extends React.Component {
                   label='password'
                   variant='outlined'
                   value={this.state.password}
-                  onChange={(e) => this.handleFormChange(e, 'password')}
+                  onChange={(e) =>
+                    this.handleFormChange(e, this.STATE_TYPES.PASSWORD)
+                  }
                 />
               </Grid>
               <Grid item>
@@ -109,7 +117,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   login,
-  setValidationError,
+  setError,
   cleanErrors,
 };
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setValidationError, setRequestError } from './errorActions.js';
+import { setError } from './errorActions.js';
 import { actionTypes } from '../actionTypes.js';
 
 const port = 'http://localhost:3002';
@@ -30,9 +30,9 @@ function login(email, password, redirect) {
         const data = error.response.data;
 
         if (statusCode === 401) {
-          dispatch(setValidationError(data.message));
+          dispatch(setError(data.message));
         } else {
-          dispatch(setRequestError(data.message, statusCode));
+          dispatch(setError(data.message, statusCode));
         }
       });
   };

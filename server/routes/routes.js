@@ -1,6 +1,5 @@
 const userRoutes = require('./userRoutes.js');
 
-let routes = [userRoutes];
-routes = routes.flat();
+let routes = [userRoutes].flat();
 
 module.exports = routes;

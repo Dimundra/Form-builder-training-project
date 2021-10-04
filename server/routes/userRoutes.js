@@ -9,6 +9,4 @@ const loginRoute = {
   },
 };
 
-const userRoutes = [loginRoute];
-
-module.exports = userRoutes;
+module.exports = [loginRoute];
