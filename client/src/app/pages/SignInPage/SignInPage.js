@@ -20,15 +20,16 @@ import { withRouter } from 'react-router-dom';
 class SignInPage extends React.Component {
   constructor(props) {
     super(props);
-    this.STATE_TYPES = {
-      EMAIL: 'email',
-      PASSWORD: 'password',
-    };
     this.state = {
       email: '',
       password: '',
     };
   }
+
+  STATE_TYPES = {
+    EMAIL: 'email',
+    PASSWORD: 'password',
+  };
 
   handleFormChange(e, type) {
     this.setState({
