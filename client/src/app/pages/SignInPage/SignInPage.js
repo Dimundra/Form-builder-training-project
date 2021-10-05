@@ -20,15 +20,16 @@ import { withRouter } from 'react-router-dom';
 class SignInPage extends React.Component {
   constructor(props) {
     super(props);
-    this.STATE_TYPES = {
-      EMAIL: 'email',
-      PASSWORD: 'password',
-    };
     this.state = {
       email: '',
       password: '',
     };
   }
+
+  STATE_TYPES = {
+    EMAIL: 'email',
+    PASSWORD: 'password',
+  };
 
   handleFormChange(e, type) {
     this.setState({
@@ -41,7 +42,7 @@ class SignInPage extends React.Component {
     validationSchema
       .validate({ email: this.state.email, password: this.state.password })
       .then(({ email, password }) => {
-        const redirect = this.props.history.push;
+        const { push: redirect } = this.props.history;
         this.props.login(email, password, redirect);
       })
       .catch((error) => {
@@ -109,9 +110,10 @@ class SignInPage extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const { isError, errorMessage } = state.errorReducer;
   return {
-    isError: state.errorReducer.isError,
-    errorMessage: state.errorReducer.errorMessage,
+    isError,
+    errorMessage,
   };
 }
 

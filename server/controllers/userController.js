@@ -1,10 +1,13 @@
 const authenticateUser = require('../services/auth.js');
 
 const loginHandler = (request, h) => {
-  const email = request.payload.email;
-  const password = request.payload.password;
+  const { email, password } = request.payload;
 
   return authenticateUser(email, password);
 };
 
-module.exports = loginHandler;
+const cabinetPageHandler = (request, h) => {
+  return 'Here should be the list of the constructed forms!';
+};
+
+module.exports = { loginHandler, cabinetPageHandler };

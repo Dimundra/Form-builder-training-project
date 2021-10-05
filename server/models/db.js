@@ -1,3 +1,10 @@
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize('form_builder_db', 'root', 'appleiphone5', {
+  host: 'localhost',
+  dialect: 'mysql',
+});
+
 const users = [
   {
     id: 0,
