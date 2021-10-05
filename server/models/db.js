@@ -1,23 +1,23 @@
 const { Sequelize } = require('sequelize');
+const setAssociation = require('../helpers/setAssociation');
 
-const sequelize = new Sequelize('form_builder_db', 'root', 'appleiphone5', {
+const sequelize = new Sequelize('form_builder', 'root', 'appleiphone5', {
   host: 'localhost',
   dialect: 'mysql',
 });
 
-const users = [
-  {
-    id: 0,
-    nick_name: 'Dima',
-    email: 'dima@gmail.com',
-    password: 'helloDima6',
-  },
-  {
-    id: 1,
-    nick_name: 'V',
-    email: 'V@gmail.com',
-    password: 'helloV',
-  },
-];
+const models = [require('./user'), require('./form')];
 
-module.exports = users;
+// define models
+for (const modelDefiner of models) {
+  modelDefiner(sequelize);
+}
+
+// set one-to-many relation
+setAssociation(sequelize);
+
+//sync with DB
+async function initDB() {
+  await sequelize.sync({ force: true });
+}
+initDB();
