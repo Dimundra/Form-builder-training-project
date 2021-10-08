@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "root",
+    "password": "appleiphone5",
+    "database": "form_builder",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "migrationStorage": "json"
+  }
+}
