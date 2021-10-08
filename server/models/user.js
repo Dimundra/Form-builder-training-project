@@ -1,8 +1,6 @@
-const { DataTypes, Model } = require('sequelize');
+module.exports = (sequelize, Model, DataTypes) => {
+  class user extends Model {}
 
-class user extends Model {}
-
-module.exports = (sequelize) => {
   user.init(
     {
       id: {
@@ -36,4 +34,10 @@ module.exports = (sequelize) => {
       timestamps: false,
     }
   );
+
+  user.associate = ({ form }) => {
+    user.hasMany(form);
+  };
+
+  return user;
 };
