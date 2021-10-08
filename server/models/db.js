@@ -1,23 +1,25 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, Model, DataTypes } = require('sequelize');
+const user = require('./user');
+const form = require('./form');
 
-const sequelize = new Sequelize('form_builder_db', 'root', 'appleiphone5', {
+const sequelize = new Sequelize('form_builder', 'root', 'appleiphone5', {
   host: 'localhost',
   dialect: 'mysql',
 });
 
-const users = [
-  {
-    id: 0,
-    nick_name: 'Dima',
-    email: 'dima@gmail.com',
-    password: 'helloDima6',
-  },
-  {
-    id: 1,
-    nick_name: 'V',
-    email: 'V@gmail.com',
-    password: 'helloV',
-  },
-];
+const models = { user, form };
 
-module.exports = users;
+// initialize the models
+Object.keys(models).forEach((model) => {
+  models[model] = models[model](sequelize, Model, DataTypes);
+});
+
+// associate models
+Object.keys(models).forEach((model) => {
+  models[model].associate(models);
+});
+
+async function initDB() {
+  await sequelize.sync({ force: true });
+}
+initDB();
