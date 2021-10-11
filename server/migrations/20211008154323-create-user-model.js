@@ -1,45 +1,37 @@
-const { Model } = require('sequelize');
+'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-  class user extends Model {}
-
-  user.init(
-    {
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    return queryInterface.createTable('users', {
       id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
       nickname: {
-        type: DataTypes.STRING(50),
+        type: Sequelize.STRING(50),
         allowNull: false,
         unique: true,
       },
       email: {
-        type: DataTypes.STRING(50),
+        type: Sequelize.STRING(50),
         allowNull: false,
         validate: {
           isEmail: true,
         },
       },
       password: {
-        type: DataTypes.STRING(50),
+        type: Sequelize.STRING(50),
         allowNull: false,
         validate: {
           is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
         },
       },
-    },
-    {
-      sequelize,
-      timestamps: false,
-    }
-  );
+    });
+  },
 
-  user.associate = ({ form }) => {
-    user.hasMany(form);
-  };
-
-  return user;
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('users');
+  },
 };

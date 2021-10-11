@@ -1,4 +1,6 @@
-module.exports = (sequelize, Model, DataTypes) => {
+const { Model } = require('sequelize');
+
+module.exports = (sequelize, DataTypes) => {
   class form extends Model {}
 
   form.init(
