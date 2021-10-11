@@ -1,6 +1,6 @@
 const Boom = require('@hapi/boom');
 const JWT = require('jsonwebtoken');
-const users = require('../models/db.js');
+// const users = require('../models/db.js');
 const secret = require('../const.js');
 
 function authenticateUser(email, password) {
