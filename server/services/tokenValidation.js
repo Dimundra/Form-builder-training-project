@@ -1,15 +1,17 @@
-// const users = require('../models/db');
+const db = require('../models/index');
 
 const validateToken = async function (decoded, request, h) {
-  let isValid = false;
-  // for (const user of users) {
-  //   if (user.id === decoded.id) {
-  //     isValid = true;
-  //     return { isValid };
-  //   }
-  // }
+  let user = await db.sequelize.models.user.findOne({
+    where: {
+      id: decoded.id,
+    },
+  });
 
-  return { isValid: true };
+  if (!user) {
+    return { isValid: false };
+  } else {
+    return { isValid: true };
+  }
 };
 
 module.exports = validateToken;

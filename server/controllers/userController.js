@@ -1,9 +1,9 @@
 const authenticateUser = require('../services/auth.js');
 
-const loginHandler = (request, h) => {
+const loginHandler = async (request, h) => {
   const { email, password } = request.payload;
 
-  return authenticateUser(email, password);
+  return await authenticateUser(email, password);
 };
 
 const cabinetPageHandler = (request, h) => {
