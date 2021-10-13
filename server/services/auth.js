@@ -1,11 +1,14 @@
 const Boom = require('@hapi/boom');
 const JWT = require('jsonwebtoken');
-const { Op } = require('sequelize');
 const db = require('../models/index');
 const secret = require('../const.js');
 
-async function authenticatelogin(email, password) {
-  let user = await db.sequelize.models.user.findOne({
+/// use user model
+const { user: userModel } = db.sequelize.models;
+///
+
+async function authenticateLogin(email, password) {
+  let user = await userModel.findOne({
     where: {
       email: email,
       password: password,
@@ -26,9 +29,7 @@ async function authenticatelogin(email, password) {
 }
 
 async function authenticateRegistration(nickname, email, password) {
-  const { user } = db.sequelize.models;
-
-  let userWithSuchNickname = await user.findOne({
+  const userWithSuchNickname = await userModel.findOne({
     where: {
       nickname: nickname,
     },
@@ -37,7 +38,7 @@ async function authenticateRegistration(nickname, email, password) {
     return 'User with such nickname already exists! Please choose another nickname.';
   }
 
-  let userWithSuchEmail = await user.findOne({
+  const userWithSuchEmail = await userModel.findOne({
     where: {
       email: email,
     },
@@ -46,7 +47,7 @@ async function authenticateRegistration(nickname, email, password) {
     return 'User with such email already exists!';
   }
 
-  let userWithSuchPassword = await user.findOne({
+  const userWithSuchPassword = await userModel.findOne({
     where: {
       password: password,
     },
@@ -55,7 +56,11 @@ async function authenticateRegistration(nickname, email, password) {
     return 'Use another password please!';
   }
 
-  const { id: newUserId } = await user.create({ nickname, email, password });
+  const { id: newUserId } = await userModel.create({
+    nickname,
+    email,
+    password,
+  });
 
   const payloadForJWT = { id: newUserId };
   const expirationTimeOfJWT = '30000ms'; // 30 sec
@@ -65,4 +70,4 @@ async function authenticateRegistration(nickname, email, password) {
   return { token: token };
 }
 
-module.exports = { authenticatelogin, authenticateRegistration };
+module.exports = { authenticateLogin, authenticateRegistration };

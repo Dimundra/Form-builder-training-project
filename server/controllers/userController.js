@@ -1,9 +1,13 @@
 const {
-  authenticatelogin,
+  authenticateLogin,
   authenticateRegistration,
 } = require('../services/auth.js');
 const db = require('../models/index');
 const Boom = require('@hapi/boom');
+
+/// use user model
+const { user: userModel } = db.sequelize.models;
+///
 
 const cabinetPageHandler = (request, h) => {
   return 'Here should be the list of the constructed forms!';
@@ -12,7 +16,7 @@ const cabinetPageHandler = (request, h) => {
 const loginHandler = async (request, h) => {
   const { email, password } = request.payload;
 
-  return await authenticatelogin(email, password);
+  return await authenticateLogin(email, password);
 };
 
 const registrationHandler = async (request, h) => {
@@ -22,7 +26,7 @@ const registrationHandler = async (request, h) => {
 };
 
 const getAllUsersHanlder = async (request, h) => {
-  let users = await db.sequelize.models.user.findAll();
+  let users = await userModel.findAll();
 
   if (users.length === 0) {
     return Boom.notFound('No users found!');
@@ -33,7 +37,7 @@ const getAllUsersHanlder = async (request, h) => {
 };
 
 const getUserByIdHandler = async (request, h) => {
-  let user = await db.sequelize.models.user.findOne({
+  let user = await userModel.findOne({
     where: {
       id: request.params.id,
     },
@@ -48,7 +52,6 @@ const getUserByIdHandler = async (request, h) => {
 };
 
 const updateUserPasswordHandler = async (request, h) => {
-  const userModel = db.sequelize.models.user;
   const { password } = request.payload;
   const user = await userModel.findOne({
     where: {
@@ -72,7 +75,6 @@ const updateUserPasswordHandler = async (request, h) => {
 };
 
 const deleteUserHandler = async (request, h) => {
-  const userModel = db.sequelize.models.user;
   const user = await userModel.findOne({
     where: {
       id: request.params.id,
