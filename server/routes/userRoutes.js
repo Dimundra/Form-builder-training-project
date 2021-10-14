@@ -72,6 +72,15 @@ const updateUserPassword = {
   method: 'PUT',
   path: '/user/{id}',
   handler: async (request, h) => await updateUserPasswordHandler(request, h),
+  options: {
+    validate: {
+      payload: Joi.object({
+        password: Joi.string()
+          .required('required!')
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
+      }),
+    },
+  },
 };
 
 const deleteUser = {

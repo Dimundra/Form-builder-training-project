@@ -49,7 +49,7 @@ const addNewFormHandler = async (request, h) => {
 };
 
 const updateFormHandler = async (request, h) => {
-  const { name, data } = request.payload;
+  const { name, data, userId } = request.payload;
 
   const form = await formModel.findOne({
     where: {
@@ -60,30 +60,14 @@ const updateFormHandler = async (request, h) => {
   if (!form) {
     return Boom.notFound("Form with such id wasn't found!");
   } else {
-    if (!name && !data) {
-      return "Sorry but you haven't provided an appropriate data to update the form!";
-    }
-
-    if (name) {
-      await formModel.update(
-        { name },
-        {
-          where: {
-            id: request.params.id,
-          },
-        }
-      );
-    }
-    if (data) {
-      await formModel.update(
-        { data },
-        {
-          where: {
-            id: request.params.id,
-          },
-        }
-      );
-    }
+    await formModel.update(
+      { name, data, userId },
+      {
+        where: {
+          id: request.params.id,
+        },
+      }
+    );
     return 'Form successfully updated!';
   }
 };

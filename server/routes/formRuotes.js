@@ -38,6 +38,15 @@ const updateForm = {
   method: 'PUT',
   path: '/form/{id}',
   handler: async (request, h) => await updateFormHandler(request, h),
+  options: {
+    validate: {
+      payload: Joi.object({
+        name: Joi.string().required('required!'),
+        data: Joi.object().required('required!'),
+        userId: Joi.string().required('required!'),
+      }),
+    },
+  },
 };
 
 const deleteForm = {
