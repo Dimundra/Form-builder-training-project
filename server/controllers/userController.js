@@ -5,9 +5,7 @@ const {
 const db = require('../models/index');
 const Boom = require('@hapi/boom');
 
-/// use user model
 const { user: userModel } = db.sequelize.models;
-///
 
 const cabinetPageHandler = (request, h) => {
   return 'Here should be the list of the constructed forms!';
@@ -16,7 +14,7 @@ const cabinetPageHandler = (request, h) => {
 const loginHandler = async (request, h) => {
   const { email, password } = request.payload;
 
-  return await authenticateLogin(email, password);
+  return authenticateLogin(email, password);
 };
 
 const registrationHandler = async (request, h) => {
@@ -27,41 +25,24 @@ const registrationHandler = async (request, h) => {
 
 const getAllUsersHanlder = async (request, h) => {
   let users = await userModel.findAll();
-
-  if (users.length === 0) {
-    return Boom.notFound('No users found!');
-  } else {
-    users = users.map((user) => user.dataValues);
-    return users;
-  }
+  users = users.map((user) => user.dataValues);
+  return users;
 };
 
 const getUserByIdHandler = async (request, h) => {
-  let user = await userModel.findOne({
-    where: {
-      id: request.params.id,
-    },
-  });
+  let user = await userModel.findByPk(request.params.id);
 
   if (!user) {
     return Boom.notFound("User with such id wasn't found!");
-  } else {
-    user = user.dataValues;
-    return user;
   }
+  user = user.dataValues;
+  return user;
 };
 
 const updateUserPasswordHandler = async (request, h) => {
   const { password } = request.payload;
-  const user = await userModel.findOne({
-    where: {
-      id: request.params.id,
-    },
-  });
 
-  if (!user) {
-    return Boom.notFound("User with such id wasn't found!");
-  } else {
+  try {
     await userModel.update(
       { password: password },
       {
@@ -71,25 +52,23 @@ const updateUserPasswordHandler = async (request, h) => {
       }
     );
     return 'User password succesfully updated!';
+  } catch (err) {
+    console.log(err);
+    return Boom.notFound("User with such id wasn't found!");
   }
 };
 
 const deleteUserHandler = async (request, h) => {
-  const user = await userModel.findOne({
-    where: {
-      id: request.params.id,
-    },
-  });
-
-  if (!user) {
-    return Boom.notFound("User with such id wasn't found!");
-  } else {
+  try {
     await userModel.destroy({
       where: {
         id: request.params.id,
       },
     });
     return 'User succesfully deleted!';
+  } catch (err) {
+    console.log(err);
+    return Boom.notFound("User with such id wasn't found!");
   }
 };
 

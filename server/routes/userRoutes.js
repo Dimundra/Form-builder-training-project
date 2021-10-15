@@ -12,7 +12,7 @@ const {
 const loginRoute = {
   method: 'POST',
   path: '/login',
-  handler: async (request, h) => await loginHandler(request, h),
+  handler: async (request, h) => loginHandler(request, h),
   options: {
     cors: true,
     validate: {
@@ -20,9 +20,7 @@ const loginRoute = {
         email: Joi.string().required('required!').email(),
         password: Joi.string()
           .required('required')
-          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/))
-          .min(6)
-          .max(20),
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
       }),
     },
   },
@@ -31,7 +29,7 @@ const loginRoute = {
 const registration = {
   method: 'POST',
   path: '/registration',
-  handler: async (request, h) => await registrationHandler(request, h),
+  handler: async (request, h) => registrationHandler(request, h),
   options: {
     validate: {
       payload: Joi.object({
@@ -39,9 +37,7 @@ const registration = {
         email: Joi.string().required('required!').email(),
         password: Joi.string()
           .required('required')
-          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/))
-          .min(6)
-          .max(20),
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
       }),
     },
   },
@@ -59,19 +55,19 @@ const cabinetRoute = {
 const getAllUsers = {
   method: 'GET',
   path: '/users',
-  handler: async (request, h) => await getAllUsersHanlder(request, h),
+  handler: async (request, h) => getAllUsersHanlder(request, h),
 };
 
 const getUserById = {
   method: 'GET',
   path: '/user/{id}',
-  handler: async (request, h) => await getUserByIdHandler(request, h),
+  handler: async (request, h) => getUserByIdHandler(request, h),
 };
 
 const updateUserPassword = {
   method: 'PUT',
   path: '/user/{id}',
-  handler: async (request, h) => await updateUserPasswordHandler(request, h),
+  handler: async (request, h) => updateUserPasswordHandler(request, h),
   options: {
     validate: {
       payload: Joi.object({
@@ -86,7 +82,7 @@ const updateUserPassword = {
 const deleteUser = {
   method: 'DELETE',
   path: '/user/{id}',
-  handler: async (request, h) => await deleteUserHandler(request, h),
+  handler: async (request, h) => deleteUserHandler(request, h),
 };
 
 module.exports = [

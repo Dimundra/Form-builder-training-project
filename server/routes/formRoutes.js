@@ -10,19 +10,19 @@ const {
 const getAllForms = {
   method: 'GET',
   path: '/forms',
-  handler: async (request, h) => await getAllFormsHandler(request, h),
+  handler: async (request, h) => getAllFormsHandler(request, h),
 };
 
 const getFormById = {
   method: 'GET',
   path: '/form/{id}',
-  handler: async (request, h) => await getFormByIdHandler(request, h),
+  handler: async (request, h) => getFormByIdHandler(request, h),
 };
 
 const addNewForm = {
   method: 'POST',
   path: '/form',
-  handler: async (request, h) => await addNewFormHandler(request, h),
+  handler: async (request, h) => addNewFormHandler(request, h),
   options: {
     validate: {
       payload: Joi.object({
@@ -37,7 +37,7 @@ const addNewForm = {
 const updateForm = {
   method: 'PUT',
   path: '/form/{id}',
-  handler: async (request, h) => await updateFormHandler(request, h),
+  handler: async (request, h) => updateFormHandler(request, h),
   options: {
     validate: {
       payload: Joi.object({
@@ -52,7 +52,7 @@ const updateForm = {
 const deleteForm = {
   method: 'DELETE',
   path: '/form/{id}',
-  handler: async (request, h) => await deleteFormHandler(request, h),
+  handler: async (request, h) => deleteFormHandler(request, h),
 };
 
 module.exports = [getAllForms, getFormById, addNewForm, updateForm, deleteForm];
