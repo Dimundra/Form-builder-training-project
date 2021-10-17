@@ -3,10 +3,10 @@ const { Op } = require('sequelize');
 const db = require('../models/index');
 const buildToken = require('./buildToken');
 
-const { user: userModel } = db.sequelize.models;
+const { User: UserModel } = db.sequelize.models;
 
 async function authenticateLogin(email, password) {
-  let user = await userModel.findOne({
+  let user = await UserModel.findOne({
     where: {
       email: email,
       password: password,
@@ -20,7 +20,7 @@ async function authenticateLogin(email, password) {
 }
 
 async function authenticateRegistration(nickname, email, password) {
-  const suchUserExists = await userModel.findOne({
+  const suchUserExists = await UserModel.findOne({
     where: {
       [Op.or]: [{ nickname }, { email }],
     },
@@ -30,7 +30,7 @@ async function authenticateRegistration(nickname, email, password) {
     return 'Such nickname or email already taken!';
   }
 
-  const { id: newUserId } = await userModel.create({
+  const { id: newUserId } = await UserModel.create({
     nickname,
     email,
     password,

@@ -1,16 +1,16 @@
 const db = require('../models/index');
 const Boom = require('@hapi/boom');
 
-const { form: formModel } = db.sequelize.models;
+const { Form: FormModel } = db.sequelize.models;
 
 const getAllFormsHandler = async (request, h) => {
-  let forms = await formModel.findAll();
+  let forms = await FormModel.findAll();
   forms = forms.map((form) => form.dataValues);
   return forms;
 };
 
 const getFormByIdHandler = async (request, h) => {
-  let form = await formModel.findByPk(request.params.id);
+  let form = await FormModel.findByPk(request.params.id);
 
   if (!form) {
     return Boom.notFound("User with such id wasn't found!");
@@ -22,7 +22,7 @@ const getFormByIdHandler = async (request, h) => {
 const addNewFormHandler = async (request, h) => {
   const { name, data, userId } = request.payload;
 
-  const formWithSuchName = await formModel.findOne({
+  const formWithSuchName = await FormModel.findOne({
     where: {
       name: name,
     },
@@ -31,7 +31,7 @@ const addNewFormHandler = async (request, h) => {
     return 'Form with such name alredy exists, please choose another name for your form!';
   }
 
-  await formModel.create({ name, data, userId });
+  await FormModel.create({ name, data, userId });
 
   return 'Form successfully added!';
 };
@@ -40,7 +40,7 @@ const updateFormHandler = async (request, h) => {
   const { name, data, userId } = request.payload;
 
   try {
-    await formModel.update(
+    await FormModel.update(
       { name, data, userId },
       {
         where: {
@@ -57,7 +57,7 @@ const updateFormHandler = async (request, h) => {
 
 const deleteFormHandler = async (request, h) => {
   try {
-    await formModel.destroy({
+    await FormModel.destroy({
       where: {
         id: request.params.id,
       },

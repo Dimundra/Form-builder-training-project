@@ -1,9 +1,9 @@
 const db = require('../models/index');
 
-const { user: userModel } = db.sequelize.models;
+const { User: UserModel } = db.sequelize.models;
 
 const validateToken = async function (decoded, request, h) {
-  let user = await userModel.findByPk(decoded.id);
+  let user = await UserModel.findByPk(decoded.id);
 
   return { isValid: Boolean(user) };
 };

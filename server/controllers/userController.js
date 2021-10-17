@@ -5,7 +5,7 @@ const {
 const db = require('../models/index');
 const Boom = require('@hapi/boom');
 
-const { user: userModel } = db.sequelize.models;
+const { User: FormModel } = db.sequelize.models;
 
 const cabinetPageHandler = (request, h) => {
   return 'Here should be the list of the constructed forms!';
@@ -24,13 +24,13 @@ const registrationHandler = async (request, h) => {
 };
 
 const getAllUsersHanlder = async (request, h) => {
-  let users = await userModel.findAll();
+  let users = await FormModel.findAll();
   users = users.map((user) => user.dataValues);
   return users;
 };
 
 const getUserByIdHandler = async (request, h) => {
-  let user = await userModel.findByPk(request.params.id);
+  let user = await FormModel.findByPk(request.params.id);
 
   if (!user) {
     return Boom.notFound("User with such id wasn't found!");
@@ -43,7 +43,7 @@ const updateUserPasswordHandler = async (request, h) => {
   const { password } = request.payload;
 
   try {
-    await userModel.update(
+    await FormModel.update(
       { password: password },
       {
         where: {
@@ -60,7 +60,7 @@ const updateUserPasswordHandler = async (request, h) => {
 
 const deleteUserHandler = async (request, h) => {
   try {
-    await userModel.destroy({
+    await FormModel.destroy({
       where: {
         id: request.params.id,
       },
