@@ -40,34 +40,30 @@ const addNewFormHandler = async (request, h) => {
 const updateFormHandler = async (request, h) => {
   const { name, data, userId } = request.payload;
 
-  try {
-    await FormModel.update(
-      { name, data, userId },
-      {
-        where: {
-          id: request.params.id,
-        },
-      }
-    );
-    return 'Form successfully updated!';
-  } catch (err) {
-    console.log(err);
-    return Boom.badImplementation();
-  }
-};
-
-const deleteFormHandler = async (request, h) => {
-  try {
-    await FormModel.destroy({
+  const isUpdated = await FormModel.update(
+    { name, data, userId },
+    {
       where: {
         id: request.params.id,
       },
-    });
-    return 'Form succesfully deleted!';
-  } catch (err) {
-    console.log(err);
-    return Boom.badImplementation();
+    }
+  );
+  if (!isUpdated) {
+    return Boom.notFound("Form with such id wasn't found!");
   }
+  return 'Form successfully updated!';
+};
+
+const deleteFormHandler = async (request, h) => {
+  const isDestroyed = await FormModel.destroy({
+    where: {
+      id: request.params.id,
+    },
+  });
+  if (!isDestroyed) {
+    return Boom.notFound("Form with such id wasn't found!");
+  }
+  return 'Form succesfully deleted!';
 };
 
 module.exports = {

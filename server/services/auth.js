@@ -12,7 +12,6 @@ async function authenticateLogin(email, password) {
       password: password,
     },
   });
-
   if (!user) {
     return Boom.unauthorized('email or password is wrong!');
   }
@@ -25,7 +24,6 @@ async function authenticateRegistration(nickname, email, password) {
       [Op.or]: [{ nickname }, { email }],
     },
   });
-
   if (suchUserExists) {
     return 'Such nickname or email already taken!';
   }

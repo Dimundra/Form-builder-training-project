@@ -42,34 +42,30 @@ const getUserByIdHandler = async (request, h) => {
 const updateUserPasswordHandler = async (request, h) => {
   const { password } = request.payload;
 
-  try {
-    await FormModel.update(
-      { password: password },
-      {
-        where: {
-          id: request.params.id,
-        },
-      }
-    );
-    return 'User password succesfully updated!';
-  } catch (err) {
-    console.log(err);
-    return Boom.badImplementation();
-  }
-};
-
-const deleteUserHandler = async (request, h) => {
-  try {
-    await FormModel.destroy({
+  const isUpdated = await FormModel.update(
+    { password: password },
+    {
       where: {
         id: request.params.id,
       },
-    });
-    return 'User succesfully deleted!';
-  } catch (err) {
-    console.log(err);
-    return Boom.badImplementation();
+    }
+  );
+  if (!isUpdated) {
+    Boom.notFound("User with such id wasn't found!");
   }
+  return 'User password succesfully updated!';
+};
+
+const deleteUserHandler = async (request, h) => {
+  const isDestroyed = await FormModel.destroy({
+    where: {
+      id: request.params.id,
+    },
+  });
+  if (!isDestroyed) {
+    Boom.notFound("User with such id wasn't found!");
+  }
+  return 'User succesfully deleted!';
 };
 
 module.exports = {
