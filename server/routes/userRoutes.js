@@ -62,6 +62,13 @@ const getUserById = {
   method: 'GET',
   path: '/user/{id}',
   handler: async (request, h) => getUserByIdHandler(request, h),
+  options: {
+    validate: {
+      params: Joi.object({
+        id: Joi.string().required('id param required!'),
+      }),
+    },
+  },
 };
 
 const updateUserPassword = {
@@ -75,6 +82,9 @@ const updateUserPassword = {
           .required('required!')
           .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
       }),
+      params: Joi.object({
+        id: Joi.string().required('id param required!'),
+      }),
     },
   },
 };
@@ -83,6 +93,13 @@ const deleteUser = {
   method: 'DELETE',
   path: '/user/{id}',
   handler: async (request, h) => deleteUserHandler(request, h),
+  options: {
+    validate: {
+      params: Joi.object({
+        id: Joi.string().required('id param required!'),
+      }),
+    },
+  },
 };
 
 module.exports = [

@@ -13,7 +13,7 @@ const getFormByIdHandler = async (request, h) => {
   let form = await FormModel.findByPk(request.params.id);
 
   if (!form) {
-    return Boom.notFound("User with such id wasn't found!");
+    return Boom.notFound("Form with such id wasn't found!");
   }
   form = form.dataValues;
   return form;
@@ -24,7 +24,8 @@ const addNewFormHandler = async (request, h) => {
 
   const formWithSuchName = await FormModel.findOne({
     where: {
-      name: name,
+      name,
+      userId,
     },
   });
   if (formWithSuchName) {
@@ -51,7 +52,7 @@ const updateFormHandler = async (request, h) => {
     return 'Form successfully updated!';
   } catch (err) {
     console.log(err);
-    return Boom.notFound("Form with such id wasn't found!");
+    return Boom.badImplementation();
   }
 };
 
@@ -65,7 +66,7 @@ const deleteFormHandler = async (request, h) => {
     return 'Form succesfully deleted!';
   } catch (err) {
     console.log(err);
-    return Boom.notFound("Form with such id wasn't found!");
+    return Boom.badImplementation();
   }
 };
 

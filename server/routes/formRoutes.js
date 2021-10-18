@@ -17,6 +17,13 @@ const getFormById = {
   method: 'GET',
   path: '/form/{id}',
   handler: async (request, h) => getFormByIdHandler(request, h),
+  options: {
+    validate: {
+      params: Joi.object({
+        id: Joi.string().required('id param required!'),
+      }),
+    },
+  },
 };
 
 const addNewForm = {
@@ -45,6 +52,9 @@ const updateForm = {
         data: Joi.object().required('required!'),
         userId: Joi.string().required('required!'),
       }),
+      params: Joi.object({
+        id: Joi.string().required('id param required!'),
+      }),
     },
   },
 };
@@ -53,6 +63,13 @@ const deleteForm = {
   method: 'DELETE',
   path: '/form/{id}',
   handler: async (request, h) => deleteFormHandler(request, h),
+  options: {
+    validate: {
+      params: Joi.object({
+        id: Joi.string().required('id param required!'),
+      }),
+    },
+  },
 };
 
 module.exports = [getAllForms, getFormById, addNewForm, updateForm, deleteForm];

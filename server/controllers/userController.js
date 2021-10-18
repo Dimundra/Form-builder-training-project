@@ -54,7 +54,7 @@ const updateUserPasswordHandler = async (request, h) => {
     return 'User password succesfully updated!';
   } catch (err) {
     console.log(err);
-    return Boom.notFound("User with such id wasn't found!");
+    return Boom.badImplementation();
   }
 };
 
@@ -68,7 +68,7 @@ const deleteUserHandler = async (request, h) => {
     return 'User succesfully deleted!';
   } catch (err) {
     console.log(err);
-    return Boom.notFound("User with such id wasn't found!");
+    return Boom.badImplementation();
   }
 };
 
