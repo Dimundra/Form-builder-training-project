@@ -1,27 +1,40 @@
 const Boom = require('@hapi/boom');
-const JWT = require('jsonwebtoken');
+const { Op } = require('sequelize');
 const db = require('../models/index');
-const secret = require('../const.js');
+const buildToken = require('./buildToken');
 
-async function authenticateUser(email, password) {
-  let user = await db.sequelize.models.user.findOne({
+const { User: UserModel } = db.sequelize.models;
+
+async function authenticateLogin(email, password) {
+  let user = await UserModel.findOne({
     where: {
       email: email,
       password: password,
     },
   });
-
   if (!user) {
     return Boom.unauthorized('email or password is wrong!');
-  } else {
-    const userCredentials = user.dataValues;
-    const payloadForJWT = { id: userCredentials.id };
-    const expirationTimeOfJWT = '30000ms'; // 30 sec
-    const token = JWT.sign(payloadForJWT, secret, {
-      expiresIn: expirationTimeOfJWT,
-    });
-    return { token: token };
   }
+  return buildToken(user.dataValues.id);
 }
 
-module.exports = authenticateUser;
+async function authenticateRegistration(nickname, email, password) {
+  const suchUserExists = await UserModel.findOne({
+    where: {
+      [Op.or]: [{ nickname }, { email }],
+    },
+  });
+  if (suchUserExists) {
+    return 'Such nickname or email already taken!';
+  }
+
+  const { id: newUserId } = await UserModel.create({
+    nickname,
+    email,
+    password,
+  });
+
+  return buildToken(newUserId);
+}
+
+module.exports = { authenticateLogin, authenticateRegistration };
