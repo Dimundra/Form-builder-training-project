@@ -7,7 +7,7 @@ const {
 const loginRoute = {
   method: 'POST',
   path: '/login',
-  handler: (request, h) => loginHandler(request, h),
+  handler: async (request, h) => await loginHandler(request, h),
   options: {
     cors: true,
     validate: {
