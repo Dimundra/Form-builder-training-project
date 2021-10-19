@@ -17,16 +17,10 @@ module.exports = {
       email: {
         type: Sequelize.STRING(50),
         allowNull: false,
-        validate: {
-          isEmail: true,
-        },
       },
       password: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(60),
         allowNull: false,
-        validate: {
-          is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
-        },
       },
     });
   },

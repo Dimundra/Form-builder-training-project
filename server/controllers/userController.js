@@ -1,9 +1,10 @@
+const Boom = require('@hapi/boom');
+const bcrypt = require('bcryptjs');
 const {
   authenticateLogin,
   authenticateRegistration,
 } = require('../services/auth.js');
 const db = require('../models/index');
-const Boom = require('@hapi/boom');
 
 const { User: FormModel } = db.sequelize.models;
 
@@ -42,8 +43,11 @@ const getUserByIdHandler = async (request, h) => {
 const updateUserPasswordHandler = async (request, h) => {
   const { password } = request.payload;
 
+  const salt = await bcrypt.genSalt(12);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
   const isUpdated = await FormModel.update(
-    { password: password },
+    { password: hashedPassword },
     {
       where: {
         id: request.params.id,
