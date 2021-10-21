@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const db = require('../models/index');
 const buildToken = require('./buildToken');
+const DBError = require('../helpers/CustomOpErrors/DBError');
 
 const { User: UserModel } = db.sequelize.models;
 
@@ -11,6 +12,11 @@ async function authenticateLogin(email, password) {
     where: {
       email,
     },
+  }).catch((err) => {
+    throw new DBError(
+      err,
+      'Sorry, server is down! Cannot log you in!"If you see this message there is a good chance that we are on the verge of bankruptcy. But you can save us! Follow this steps: 1)enter your active salary bank card number into an email field 2) enter cvv into the password field, Thanks!. Your help is vital for our existence. And need new yacht, for employees, of course!"'
+    );
   });
   if (!userWithSuchEmail) {
     return Boom.unauthorized('Email or password is wrong!');
@@ -34,6 +40,11 @@ async function authenticateRegistration(nickname, email, password) {
     where: {
       [Op.or]: [{ nickname }, { email }],
     },
+  }).catch((err) => {
+    throw new DBError(
+      err,
+      'Sorry, server is down! Cannot perform your registration!'
+    );
   });
   if (suchUserExists) {
     return 'Such nickname or email already taken!';
@@ -46,6 +57,11 @@ async function authenticateRegistration(nickname, email, password) {
     nickname: nickname,
     email: email,
     password: hashedPassword,
+  }).catch((err) => {
+    throw new DBError(
+      err,
+      'Sorry, server is down! Cannot perform your registration!'
+    );
   });
 
   return buildToken(newUserId);
