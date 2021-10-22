@@ -1,9 +1,11 @@
+const Boom = require('@hapi/boom');
+const bcrypt = require('bcryptjs');
 const {
   authenticateLogin,
   authenticateRegistration,
 } = require('../services/auth.js');
 const db = require('../models/index');
-const Boom = require('@hapi/boom');
+const DBError = require('../helpers/CustomOpErrors/DBError');
 
 const { User: FormModel } = db.sequelize.models;
 
@@ -24,13 +26,17 @@ const registrationHandler = async (request, h) => {
 };
 
 const getAllUsersHanlder = async (request, h) => {
-  let users = await FormModel.findAll();
+  let users = await FormModel.findAll().catch((err) => {
+    throw new DBError(err, 'Sorry, cannot get you users! Error occured!');
+  });
   users = users.map((user) => user.dataValues);
   return users;
 };
 
 const getUserByIdHandler = async (request, h) => {
-  let user = await FormModel.findByPk(request.params.id);
+  let user = await FormModel.findByPk(request.params.id).catch((err) => {
+    throw new DBError(err, 'Sorry, cannot get you user! Error occured!');
+  });
 
   if (!user) {
     return Boom.notFound("User with such id wasn't found!");
@@ -42,14 +48,22 @@ const getUserByIdHandler = async (request, h) => {
 const updateUserPasswordHandler = async (request, h) => {
   const { password } = request.payload;
 
+  const salt = await bcrypt.genSalt(12);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
   const isUpdated = await FormModel.update(
-    { password: password },
+    { password: hashedPassword },
     {
       where: {
         id: request.params.id,
       },
     }
-  );
+  ).catch((err) => {
+    throw new DBError(
+      err,
+      'Sorry, cannot update your password! Error occured!'
+    );
+  });
   if (!isUpdated) {
     Boom.notFound("User with such id wasn't found!");
   }
@@ -61,6 +75,11 @@ const deleteUserHandler = async (request, h) => {
     where: {
       id: request.params.id,
     },
+  }).catch((err) => {
+    throw new DBError(
+      err,
+      'Sorry, cannot delete your account! Iosif Stalin not approving!'
+    );
   });
   if (!isDestroyed) {
     Boom.notFound("User with such id wasn't found!");
