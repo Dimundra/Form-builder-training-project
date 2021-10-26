@@ -1,6 +1,6 @@
 const db = require('../models/index');
 
-const { User: UserModel } = db.sequelize.models;
+const { User: UserModel } = db.models;
 
 const validateToken = async function (decoded, request, h) {
   let user = await UserModel.findByPk(decoded.id);

@@ -7,22 +7,22 @@ const {
 const db = require('../models/index');
 const DBError = require('../helpers/CustomOpErrors/DBError');
 
-const { User: FormModel } = db.sequelize.models;
+const { User: FormModel } = db.models;
 
 const cabinetPageHandler = (request, h) => {
   return 'Here should be the list of the constructed forms!';
-};
-
-const loginHandler = async (request, h) => {
-  const { email, password } = request.payload;
-
-  return authenticateLogin(email, password);
 };
 
 const registrationHandler = async (request, h) => {
   const { nickname, email, password } = request.payload;
 
   return authenticateRegistration(nickname, email, password);
+};
+
+const loginHandler = async (request, h) => {
+  const { email, password } = request.payload;
+
+  return authenticateLogin(email, password);
 };
 
 const getAllUsersHanlder = async (request, h) => {

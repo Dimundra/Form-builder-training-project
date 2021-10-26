@@ -5,35 +5,7 @@ const db = require('../models/index');
 const buildToken = require('./buildToken');
 const DBError = require('../helpers/CustomOpErrors/DBError');
 
-const { User: UserModel } = db.sequelize.models;
-
-async function authenticateLogin(email, password) {
-  let userWithSuchEmail = await UserModel.findOne({
-    where: {
-      email,
-    },
-  }).catch((err) => {
-    throw new DBError(
-      err,
-      'Sorry, server is down! Cannot log you in!"If you see this message there is a good chance that we are on the verge of bankruptcy. But you can save us! Follow this steps: 1)enter your active salary bank card number into an email field 2) enter cvv into the password field, Thanks!. Your help is vital for our existence. And need new yacht, for employees, of course!"'
-    );
-  });
-  if (!userWithSuchEmail) {
-    return Boom.unauthorized('Email or password is wrong!');
-  }
-
-  userWithSuchEmail = userWithSuchEmail.dataValues;
-  const isPasswordMatch = await bcrypt.compare(
-    password,
-    userWithSuchEmail.password
-  );
-
-  if (!isPasswordMatch) {
-    return Boom.unauthorized('Email or password is wrong!');
-  }
-
-  return buildToken(userWithSuchEmail.id);
-}
+const { User: UserModel } = db.models;
 
 async function authenticateRegistration(nickname, email, password) {
   const suchUserExists = await UserModel.findOne({
@@ -65,6 +37,34 @@ async function authenticateRegistration(nickname, email, password) {
   });
 
   return buildToken(newUserId);
+}
+
+async function authenticateLogin(email, password) {
+  let userWithSuchEmail = await UserModel.findOne({
+    where: {
+      email,
+    },
+  }).catch((err) => {
+    throw new DBError(
+      err,
+      'Sorry, server is down! Cannot log you in!"If you see this message there is a good chance that we are on the verge of bankruptcy. But you can save us! Follow this steps: 1)enter your active salary bank card number into an email field 2) enter cvv into the password field, Thanks!. Your help is vital for our existence. And need new yacht, for employees, of course!"'
+    );
+  });
+  if (!userWithSuchEmail) {
+    return Boom.unauthorized('Email or password is wrong!');
+  }
+
+  userWithSuchEmail = userWithSuchEmail.dataValues;
+  const isPasswordMatch = await bcrypt.compare(
+    password,
+    userWithSuchEmail.password
+  );
+
+  if (!isPasswordMatch) {
+    return Boom.unauthorized('Email or password is wrong!');
+  }
+
+  return buildToken(userWithSuchEmail.id);
 }
 
 module.exports = { authenticateLogin, authenticateRegistration };

@@ -2,7 +2,7 @@ const Boom = require('@hapi/boom');
 const db = require('../models/index');
 const DBError = require('../helpers/CustomOpErrors/DBError');
 
-const { Form: FormModel } = db.sequelize.models;
+const { Form: FormModel } = db.models;
 
 const getAllFormsHandler = async (request, h) => {
   let forms = await FormModel.findAll().catch((err) => {

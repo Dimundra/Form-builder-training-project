@@ -9,14 +9,14 @@ const {
   deleteUserHandler,
 } = require('../controllers/userController');
 
-const loginRoute = {
+const registration = {
   method: 'POST',
-  path: '/login',
-  handler: async (request, h) => loginHandler(request, h),
+  path: '/registration',
+  handler: async (request, h) => registrationHandler(request, h),
   options: {
-    cors: true,
     validate: {
       payload: Joi.object({
+        nickname: Joi.string().required('required!'),
         email: Joi.string().required('required!').email(),
         password: Joi.string()
           .required('required')
@@ -26,14 +26,14 @@ const loginRoute = {
   },
 };
 
-const registration = {
+const loginRoute = {
   method: 'POST',
-  path: '/registration',
-  handler: async (request, h) => registrationHandler(request, h),
+  path: '/login',
+  handler: async (request, h) => loginHandler(request, h),
   options: {
+    cors: true,
     validate: {
       payload: Joi.object({
-        nickname: Joi.string().required('required!'),
         email: Joi.string().required('required!').email(),
         password: Joi.string()
           .required('required')

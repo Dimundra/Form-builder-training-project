@@ -19,4 +19,4 @@ Object.keys(models).forEach((model) => {
   models[model].associate(models);
 });
 
-module.exports = { sequelize, Sequelize };
+module.exports = sequelize;
