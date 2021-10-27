@@ -27,7 +27,7 @@ const loginHandler = async (request, h) => {
 
 const getAllUsersHanlder = async (request, h) => {
   let users = await FormModel.findAll().catch((err) => {
-    throw new DBError(err, 'Sorry, cannot get you users! Error occured!');
+    throw new DBError('Sorry, cannot get you users! Error occured!', err.stack);
   });
   users = users.map((user) => user.dataValues);
   return users;
@@ -35,7 +35,7 @@ const getAllUsersHanlder = async (request, h) => {
 
 const getUserByIdHandler = async (request, h) => {
   let user = await FormModel.findByPk(request.params.id).catch((err) => {
-    throw new DBError(err, 'Sorry, cannot get you user! Error occured!');
+    throw new DBError('Sorry, cannot get you user! Error occured!', err.stack);
   });
 
   if (!user) {
@@ -60,8 +60,8 @@ const updateUserPasswordHandler = async (request, h) => {
     }
   ).catch((err) => {
     throw new DBError(
-      err,
-      'Sorry, cannot update your password! Error occured!'
+      'Sorry, cannot update your password! Error occured!',
+      err.stack
     );
   });
   if (!isUpdated) {
@@ -77,8 +77,8 @@ const deleteUserHandler = async (request, h) => {
     },
   }).catch((err) => {
     throw new DBError(
-      err,
-      'Sorry, cannot delete your account! Iosif Stalin not approving!'
+      'Sorry, cannot delete your account! Iosif Stalin not approving!',
+      err.stack
     );
   });
   if (!isDestroyed) {

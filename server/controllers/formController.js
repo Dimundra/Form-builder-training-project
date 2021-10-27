@@ -6,7 +6,7 @@ const { Form: FormModel } = db.models;
 
 const getAllFormsHandler = async (request, h) => {
   let forms = await FormModel.findAll().catch((err) => {
-    throw new DBError(err, 'Sorry, cannot get forms! Error occured!');
+    throw new DBError('Sorry, cannot get forms! Error occured!', err.stack);
   });
   forms = forms.map((form) => form.dataValues);
   return forms;
@@ -14,7 +14,10 @@ const getAllFormsHandler = async (request, h) => {
 
 const getFormByIdHandler = async (request, h) => {
   let form = await FormModel.findByPk(request.params.id).catch((err) => {
-    throw new DBError(err, 'Sorry, cannot get required form! Error occured!');
+    throw new DBError(
+      'Sorry, cannot get required form! Error occured!',
+      err.stack
+    );
   });
 
   if (!form) {
@@ -33,7 +36,7 @@ const addNewFormHandler = async (request, h) => {
       userId,
     },
   }).catch((err) => {
-    throw new DBError(err, 'Sorry, server is down!');
+    throw new DBError('Sorry, server is down!', err.stack);
   });
   if (formWithSuchName) {
     return 'Form with such name alredy exists, please choose another name for your form!';
@@ -41,9 +44,8 @@ const addNewFormHandler = async (request, h) => {
 
   await FormModel.create({ name, data, userId }).catch((err) => {
     throw new DBError(
-      err,
       'Sorry, cannot save the new form! Error occured!',
-      500
+      err.stack
     );
   });
 
@@ -61,7 +63,10 @@ const updateFormHandler = async (request, h) => {
       },
     }
   ).catch((err) => {
-    throw new DBError(err, 'Sorry, cannot update the form! Error occured!');
+    throw new DBError(
+      'Sorry, cannot update the form! Error occured!',
+      err.stack
+    );
   });
   if (!isUpdated) {
     return Boom.notFound("Form with such id wasn't found!");
@@ -75,7 +80,10 @@ const deleteFormHandler = async (request, h) => {
       id: request.params.id,
     },
   }).catch((err) => {
-    throw new DBError(err, 'Sorry, cannot delete the form! Error occured!');
+    throw new DBError(
+      'Sorry, cannot delete the form! Error occured!',
+      err.stack
+    );
   });
   if (!isDestroyed) {
     return Boom.notFound("Form with such id wasn't found!");

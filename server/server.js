@@ -41,13 +41,16 @@ function preResponse(request, h) {
     return h.continue;
   }
 
+  // show error stack trace for devs
+  console.log(response.stack);
+
   const responsePayload = {
     statusCode: 500,
     error: 'Internal Server Error',
-    message: response.messageForClient,
+    message: response.message,
   };
 
-  return h.response(responsePayload).code(response.statusCode);
+  return h.response(responsePayload).code(responsePayload.statusCode);
 }
 
 process.on('unhandledRejection', (err) => {

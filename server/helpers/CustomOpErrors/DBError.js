@@ -1,7 +1,7 @@
 class DBError extends Error {
-  constructor(message, messageForClient) {
+  constructor(message, stack) {
     super(message);
-    this.messageForClient = messageForClient;
+    this.stack = stack;
   }
 }
 
