@@ -5,6 +5,20 @@
     "database": "form_builder",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "migrationStorage": "json"
+    "migrationStorage": "json",
+    "migrationStoragePath": "./sequelizeMeta/migrationsMeta/development.json",
+    "seederStorage": "json",
+    "seederStoragePath": "./sequelizeMeta/seedersMeta/development.json"
+  },
+  "test": {
+    "username": "root",
+    "password": "appleiphone5",
+    "database": "form_builder_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "migrationStorage": "json",
+    "migrationStoragePath": "./sequelizeMeta/migrationsMeta/test.json",
+    "seederStorage": "json",
+    "seederStoragePath": "./sequelizeMeta/seedersMeta/test.json"
   }
 }

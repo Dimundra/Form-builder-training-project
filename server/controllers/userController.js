@@ -35,7 +35,7 @@ const getAllUsersHanlder = async (request, h) => {
 
 const getUserByIdHandler = async (request, h) => {
   let user = await FormModel.findByPk(request.params.id).catch((err) => {
-    throw new DBError('Sorry, cannot get you user! Error occured!', err.stack);
+    throw new DBError('Sorry, cannot get your user! Error occured!', err.stack);
   });
 
   if (!user) {
@@ -51,7 +51,7 @@ const updateUserPasswordHandler = async (request, h) => {
   const salt = await bcrypt.genSalt(12);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  const isUpdated = await FormModel.update(
+  const [isUpdated] = await FormModel.update(
     { password: hashedPassword },
     {
       where: {
@@ -65,7 +65,7 @@ const updateUserPasswordHandler = async (request, h) => {
     );
   });
   if (!isUpdated) {
-    Boom.notFound("User with such id wasn't found!");
+    return Boom.notFound("User with such id wasn't found!");
   }
   return 'User password succesfully updated!';
 };

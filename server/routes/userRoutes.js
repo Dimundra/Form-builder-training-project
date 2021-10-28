@@ -20,7 +20,7 @@ const registration = {
         email: Joi.string().required('required!').email(),
         password: Joi.string()
           .required('required')
-          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)),
       }),
     },
   },
@@ -37,7 +37,7 @@ const loginRoute = {
         email: Joi.string().required('required!').email(),
         password: Joi.string()
           .required('required')
-          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)),
       }),
     },
   },
@@ -65,7 +65,7 @@ const getUserById = {
   options: {
     validate: {
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
+        id: Joi.string().pattern(new RegExp('^(0|[1-9]d*)$')),
       }),
     },
   },
@@ -80,10 +80,10 @@ const updateUserPassword = {
       payload: Joi.object({
         password: Joi.string()
           .required('required!')
-          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)),
       }),
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
+        id: Joi.string().pattern(new RegExp('^(0|[1-9]d*)$')),
       }),
     },
   },
@@ -96,7 +96,7 @@ const deleteUser = {
   options: {
     validate: {
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
+        id: Joi.string().pattern(new RegExp('^(0|[1-9]d*)$')),
       }),
     },
   },

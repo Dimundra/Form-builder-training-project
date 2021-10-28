@@ -17,6 +17,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.JSON,
         allowNull: false,
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: {
+            tableName: 'users',
+          },
+          key: 'id',
+        },
+      },
     },
     {
       timestamps: false,
