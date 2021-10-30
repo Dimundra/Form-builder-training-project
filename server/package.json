@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing && npx sequelize db:migrate && npx sequelize db:seed:all && jest --detectOpenHandles && npx sequelize db:seed:undo:all && npx sequelize db:migrate:undo:all"
+    "migrate-all-db": "npx sequelize db:migrate && cross-env NODE_ENV=test npx sequelize db:migrate",
+    "seed-all-db": "npx sequelize db:seed:all && cross-env NODE_ENV=test npx sequelize db:seed:all",
+    "test": "cross-env NODE_ENV=test npm run test:commands",
+    "test:commands": "npx sequelize db:migrate && npx sequelize db:seed:all && jest --detectOpenHandles && npx sequelize db:seed:undo:all && npx sequelize db:migrate:undo:all"
   },
   "author": "",
   "license": "ISC",

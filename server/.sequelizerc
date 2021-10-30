@@ -1,7 +1,3 @@
-const env = process.env.NODE_ENV || 'development'
-
 module.exports = {
-  'env': env,
-  'migrations-path': `./migrations/${env}/`,  
-  'seeders-path': `./seeders/${env}/`,
+  'env': process.env.NODE_ENV || 'development'
 }
