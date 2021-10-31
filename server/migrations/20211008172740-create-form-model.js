@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.JSON,
         allowNull: false,
       },
-      userId: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: {

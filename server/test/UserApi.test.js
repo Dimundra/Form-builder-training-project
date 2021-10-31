@@ -20,7 +20,7 @@ describe('registration route', () => {
       })
     );
 
-    // clear up the database
+    // delete user
     await UserModel.destroy({
       where: {
         nickname: 'Dima',
@@ -52,21 +52,25 @@ describe('registration route', () => {
     expect(response.text).toBe('Such nickname or email already taken!');
   });
 
-  test('Get error due to the db being down!', async () => {    
-    const mock = jest.spyOn(db.models.User, 'findOne').mockImplementation(async () => Promise.reject('DB is down!'))
+  test('Get error due to the db error', async () => {
+    const mock = jest
+      .spyOn(db.models.User, 'findOne')
+      .mockImplementation(async () => Promise.reject('Db error!'));
 
     const response = await request(server.listener).post('/registration').send({
       nickname: 'Dima',
       email: 'adam@gmail.com',
       password: 'Hello76',
-    })
+    });
 
-    expect(response.statusCode).toBe(500)
-    expect(response.type).toBe('application/json')
-    expect(response.body.message).toBe('Sorry, server is down! Cannot perform your registration!');   
+    expect(response.statusCode).toBe(500);
+    expect(response.type).toBe('application/json');
+    expect(response.body.message).toBe(
+      'Sorry, server is down! Cannot perform your registration!'
+    );
 
-    mock.mockRestore()
-  })
+    mock.mockRestore();
+  });
 });
 
 describe('login route', () => {
@@ -107,20 +111,24 @@ describe('login route', () => {
     expect(response.body.message).toBe('Email or password is wrong!');
   });
 
-  test('Unsuccesfull login due to the database being down', async () => {    
-    const mock = jest.spyOn(db.models.User, 'findOne').mockImplementation(async () => Promise.reject('DB is down!'))
+  test('Unsuccesfull login due to the db error', async () => {
+    const mock = jest
+      .spyOn(db.models.User, 'findOne')
+      .mockImplementation(async () => Promise.reject('DB error!'));
 
     const response = await request(server.listener).post('/login').send({
       email: 'nino@gmail.com',
       password: 'NinoFromBorgo8',
     });
 
-    expect(response.statusCode).toBe(500)
-    expect(response.type).toBe('application/json')
-    expect(response.body.message).toBe('Sorry, server is down! Cannot log you in!"If you see this message there is a good chance that we are on the verge of bankruptcy. But you can save us! Follow this steps: 1)enter your active salary bank card number into an email field 2) enter cvv into the password field, Thanks!. Your help is vital for our existence. And need new yacht, for employees, of course!"');         
+    expect(response.statusCode).toBe(500);
+    expect(response.type).toBe('application/json');
+    expect(response.body.message).toBe(
+      'Sorry, server is down! Cannot log you in!"If you see this message there is a good chance that we are on the verge of bankruptcy. But you can save us! Follow this steps: 1)enter your active salary bank card number into an email field 2) enter cvv into the password field, Thanks!. Your help is vital for our existence. And need new yacht, for employees, of course!"'
+    );
 
-    mock.mockRestore()
-  })
+    mock.mockRestore();
+  });
 });
 
 describe('getAllUsers route', () => {
@@ -141,17 +149,21 @@ describe('getAllUsers route', () => {
     );
   });
 
-  test('Get error due to the db being down!', async () => {
-    const mock = jest.spyOn(db.models.User, 'findAll').mockImplementation(async () => Promise.reject('DB is down!'))
+  test('Get error due to the db error', async () => {
+    const mock = jest
+      .spyOn(db.models.User, 'findAll')
+      .mockImplementation(async () => Promise.reject('DB error!'));
 
     const response = await request(server.listener).get('/users');
 
-    expect(response.statusCode).toBe(500)
-    expect(response.type).toBe('application/json')
-    expect(response.body.message).toBe('Sorry, cannot get you users! Error occured!')
+    expect(response.statusCode).toBe(500);
+    expect(response.type).toBe('application/json');
+    expect(response.body.message).toBe(
+      'Sorry, cannot get you users! Error occured!'
+    );
 
-    mock.mockRestore()
-  })
+    mock.mockRestore();
+  });
 });
 
 describe('getUserById route', () => {
@@ -167,10 +179,10 @@ describe('getUserById route', () => {
         email: expect.any(String),
         password: expect.any(String),
       })
-    );    
+    );
   });
 
-  test('get error response due to the wrong id parameter in the route(joi)', async () => {
+  test('Get error response due to the wrong id parameter in the route(joi)', async () => {
     const response = await request(server.listener).get('/user/h');
 
     expect(response.statusCode).toBe(400);
@@ -178,7 +190,7 @@ describe('getUserById route', () => {
     expect(response.body.message).toBe('Invalid request params input');
   });
 
-  test('Get error due to the wrong id', async () => {
+  test('Get error due to the unexisting id', async () => {
     const response = await request(server.listener).get('/user/9');
 
     expect(response.statusCode).toBe(404);
@@ -186,17 +198,21 @@ describe('getUserById route', () => {
     expect(response.body.message).toBe("User with such id wasn't found!");
   });
 
-  test('Get error due to the db being down!', async () => {
-    const mock = jest.spyOn(db.models.User, 'findByPk').mockImplementation(async () => Promise.reject('DB is down!'))
+  test('Get error due to the db error', async () => {
+    const mock = jest
+      .spyOn(db.models.User, 'findByPk')
+      .mockImplementation(async () => Promise.reject('DB error!'));
 
     const response = await request(server.listener).get('/user/1');
 
-    expect(response.statusCode).toBe(500)
-    expect(response.type).toBe('application/json')
-    expect(response.body.message).toBe('Sorry, cannot get your user! Error occured!')
+    expect(response.statusCode).toBe(500);
+    expect(response.type).toBe('application/json');
+    expect(response.body.message).toBe(
+      'Sorry, cannot get your user! Error occured!'
+    );
 
-    mock.mockRestore()
-  })
+    mock.mockRestore();
+  });
 });
 
 describe('updateUserPassword route', () => {
@@ -210,7 +226,7 @@ describe('updateUserPassword route', () => {
     expect(response.text).toBe('User password succesfully updated!');
   });
 
-  test('get error response due to the wrong id parameter in the route(joi)', async () => {
+  test('Get error due to the invalid id parameter in the route(joi)', async () => {
     const response = await request(server.listener).put('/user/hs').send({
       password: 'NicoloRome78',
     });
@@ -220,7 +236,7 @@ describe('updateUserPassword route', () => {
     expect(response.body.message).toBe('Invalid request params input');
   });
 
-  test('get error resposne due to the invalid password(joi)', async () => {
+  test('Get error due to the invalid payload(joi)', async () => {
     const response = await request(server.listener).put('/user/hs').send({
       password: 'niocnlkjl435',
     });
@@ -230,7 +246,7 @@ describe('updateUserPassword route', () => {
     expect(response.body.message).toBe('Invalid request params input');
   });
 
-  test('get error due to the wrong id', async () => {
+  test('get error due to the unexisting id', async () => {
     const response = await request(server.listener).put('/user/6').send({
       password: 'NicoloRome78',
     });
@@ -240,19 +256,23 @@ describe('updateUserPassword route', () => {
     expect(response.body.message).toBe("User with such id wasn't found!");
   });
 
-  test('Get error due to the db being down!', async () => {
-    const mock = jest.spyOn(db.models.User, 'update').mockImplementation(async () => Promise.reject('DB is down!'))
+  test('Get error due to the db error', async () => {
+    const mock = jest
+      .spyOn(db.models.User, 'update')
+      .mockImplementation(async () => Promise.reject('DB error!'));
 
     const response = await request(server.listener).put('/user/1').send({
       password: 'NicoloRome78',
     });
 
-    expect(response.statusCode).toBe(500)
-    expect(response.type).toBe('application/json')
-    expect(response.body.message).toBe('Sorry, cannot update your password! Error occured!')
+    expect(response.statusCode).toBe(500);
+    expect(response.type).toBe('application/json');
+    expect(response.body.message).toBe(
+      'Sorry, cannot update your password! Error occured!'
+    );
 
-    mock.mockRestore()
-  })
+    mock.mockRestore();
+  });
 });
 
 describe('deleteUser route', () => {
@@ -263,7 +283,7 @@ describe('deleteUser route', () => {
       nickname: 'Dimsudfnsd',
       email: 'asdfs@gmail.com',
       password: '$2a$12$TRKTzd/Pij/Sx5iDt0yIVOyhV4ws1WNNfhjpKfxV3J9QtKPN/wwsC',
-    })
+    });
 
     const response = await request(server.listener).delete('/user/7');
 
@@ -272,7 +292,7 @@ describe('deleteUser route', () => {
     expect(response.text).toBe('User succesfully deleted!');
   });
 
-  test('get error response due to the invalid route params(joi)', async () => {
+  test('Get error response due to the invalid route params(joi)', async () => {
     const response = await request(server.listener).delete('/user/hs');
 
     expect(response.statusCode).toBe(400);
@@ -280,23 +300,27 @@ describe('deleteUser route', () => {
     expect(response.body.message).toBe('Invalid request params input');
   });
 
-  test('get error due to the wrong id', async () => {
-    const response = await request(server.listener).delete('/user/6')
+  test('Get error due to the unexisting id', async () => {
+    const response = await request(server.listener).delete('/user/6');
 
     expect(response.statusCode).toBe(404);
     expect(response.type).toBe('application/json');
     expect(response.body.message).toBe("User with such id wasn't found!");
   });
 
-  test('Get error due to the db being down!', async () => {
-    const mock = jest.spyOn(db.models.User, 'update').mockImplementation(async () => Promise.reject('DB is down!'))
+  test('Get error due to the db error', async () => {
+    const mock = jest
+      .spyOn(db.models.User, 'destroy')
+      .mockImplementation(async () => Promise.reject('DB error!'));
 
-    const response = await request(server.listener).delete('/user/1')
+    const response = await request(server.listener).delete('/user/1');
 
-    expect(response.statusCode).toBe(500)
-    expect(response.type).toBe('application/json')
-    expect(response.body.message).toBe('Sorry, cannot delete your account! Iosif Stalin not approving!')
+    expect(response.statusCode).toBe(500);
+    expect(response.type).toBe('application/json');
+    expect(response.body.message).toBe(
+      'Sorry, cannot delete your account! Iosif Stalin not approving!'
+    );
 
-    mock.mockRestore()
-  })
+    mock.mockRestore();
+  });
 });

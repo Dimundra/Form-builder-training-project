@@ -15,7 +15,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('users', {
-      nickname: 'Nino',
+      id: 1,
     });
   },
 };

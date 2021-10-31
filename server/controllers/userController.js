@@ -25,7 +25,7 @@ const loginHandler = async (request, h) => {
   return authenticateLogin(email, password);
 };
 
-const getAllUsersHanlder = async (request, h) => {
+const getAllUsersHandler = async (request, h) => {
   let users = await UserModel.findAll().catch((err) => {
     throw new DBError('Sorry, cannot get you users! Error occured!', err.stack);
   });
@@ -77,10 +77,10 @@ const deleteUserHandler = async (request, h) => {
     },
   }).catch((err) => {
     throw new DBError(
-      'Sorry, cannot delete your account! Iosif Stalin not approving!',
+      'Sorry, cannot delete your account! Local authoritarian government not approving such action!',
       err.stack
     );
-  });  
+  });
   if (!isDestroyed) {
     return Boom.notFound("User with such id wasn't found!");
   }
@@ -92,7 +92,7 @@ module.exports = {
   registrationHandler,
   loginHandler,
   cabinetPageHandler,
-  getAllUsersHanlder,
+  getAllUsersHandler,
   getUserByIdHandler,
   updateUserPasswordHandler,
 };

@@ -17,16 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.JSON,
         allowNull: false,
       },
-      userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: {
-            tableName: 'users',
-          },
-          key: 'id',
-        },
-      },
     },
     {
       timestamps: false,
@@ -34,7 +24,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Form.associate = ({ User }) => {
-    Form.belongsTo(User);
+    Form.belongsTo(User, {
+      foreignKey: 'user_id',
+    });
   };
 
   return Form;

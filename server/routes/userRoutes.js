@@ -2,7 +2,7 @@ const Joi = require('joi');
 const {
   loginHandler,
   cabinetPageHandler,
-  getAllUsersHanlder,
+  getAllUsersHandler,
   getUserByIdHandler,
   registrationHandler,
   updateUserPasswordHandler,
@@ -55,7 +55,7 @@ const cabinetRoute = {
 const getAllUsers = {
   method: 'GET',
   path: '/users',
-  handler: async (request, h) => getAllUsersHanlder(request, h),
+  handler: async (request, h) => getAllUsersHandler(request, h),
 };
 
 const getUserById = {
@@ -65,7 +65,7 @@ const getUserById = {
   options: {
     validate: {
       params: Joi.object({
-        id: Joi.string().pattern(new RegExp('^(0|[1-9]d*)$')),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },
@@ -83,7 +83,7 @@ const updateUserPassword = {
           .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)),
       }),
       params: Joi.object({
-        id: Joi.string().pattern(new RegExp('^(0|[1-9]d*)$')),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },
@@ -96,7 +96,7 @@ const deleteUser = {
   options: {
     validate: {
       params: Joi.object({
-        id: Joi.string().pattern(new RegExp('^(0|[1-9]d*)$')),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },

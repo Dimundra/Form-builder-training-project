@@ -1,10 +1,13 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const User = require('./User');
 const Form = require('./Form');
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV;
 
-const database =
-  env === 'development' ? 'form_builder' : 'test' ? 'form_builder_test' : '';
+if (env == 'development') {
+  var database = 'form_builder';
+} else if (env == 'test') {
+  var database = 'form_builder_test';
+}
 
 const sequelize = new Sequelize(database, 'root', 'appleiphone5', {
   host: 'localhost',

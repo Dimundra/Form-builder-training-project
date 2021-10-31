@@ -7,14 +7,14 @@ module.exports = {
         id: 1,
         name: 'Birthdays',
         data: '{"organizer": "Dima"}',
-        userId: 1,
+        user_id: 1,
       },
     ]);
   },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('forms', {
-      name: 'Birthdays',
+      id: 1,
     });
   },
 };
