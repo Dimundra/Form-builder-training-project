@@ -44,7 +44,6 @@ const getFormByIdHandler = async (request, h) => {
       err.stack
     );
   });
-  console.log(form);
 
   if (!form) {
     return Boom.notFound("Form with such id wasn't found!");
