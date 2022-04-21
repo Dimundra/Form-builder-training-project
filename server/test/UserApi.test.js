@@ -318,7 +318,7 @@ describe('deleteUser route', () => {
     expect(response.statusCode).toBe(500);
     expect(response.type).toBe('application/json');
     expect(response.body.message).toBe(
-      'Sorry, cannot delete your account! Iosif Stalin not approving!'
+      'Sorry, cannot delete your account! Local authoritarian government not approving such action!'
     );
 
     mock.mockRestore();
