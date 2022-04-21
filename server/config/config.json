@@ -5,6 +5,14 @@
     "database": "form_builder",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "migrationStorage": "json"
+    "seederStorage": "sequelize"
+  },
+  "test": {
+    "username": "root",
+    "password": "appleiphone5",
+    "database": "form_builder_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "seederStorage": "sequelize"
   }
 }

@@ -7,7 +7,7 @@ const {
 const db = require('../models/index');
 const DBError = require('../helpers/CustomOpErrors/DBError');
 
-const { User: FormModel } = db.models;
+const { User: UserModel } = db.models;
 
 const cabinetPageHandler = (request, h) => {
   return 'Here should be the list of the constructed forms!';
@@ -25,8 +25,8 @@ const loginHandler = async (request, h) => {
   return authenticateLogin(email, password);
 };
 
-const getAllUsersHanlder = async (request, h) => {
-  let users = await FormModel.findAll().catch((err) => {
+const getAllUsersHandler = async (request, h) => {
+  let users = await UserModel.findAll().catch((err) => {
     throw new DBError('Sorry, cannot get you users! Error occured!', err.stack);
   });
   users = users.map((user) => user.dataValues);
@@ -34,8 +34,8 @@ const getAllUsersHanlder = async (request, h) => {
 };
 
 const getUserByIdHandler = async (request, h) => {
-  let user = await FormModel.findByPk(request.params.id).catch((err) => {
-    throw new DBError('Sorry, cannot get you user! Error occured!', err.stack);
+  let user = await UserModel.findByPk(request.params.id).catch((err) => {
+    throw new DBError('Sorry, cannot get your user! Error occured!', err.stack);
   });
 
   if (!user) {
@@ -51,7 +51,7 @@ const updateUserPasswordHandler = async (request, h) => {
   const salt = await bcrypt.genSalt(12);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  const isUpdated = await FormModel.update(
+  const [isUpdated] = await UserModel.update(
     { password: hashedPassword },
     {
       where: {
@@ -65,24 +65,24 @@ const updateUserPasswordHandler = async (request, h) => {
     );
   });
   if (!isUpdated) {
-    Boom.notFound("User with such id wasn't found!");
+    return Boom.notFound("User with such id wasn't found!");
   }
   return 'User password succesfully updated!';
 };
 
 const deleteUserHandler = async (request, h) => {
-  const isDestroyed = await FormModel.destroy({
+  const isDestroyed = await UserModel.destroy({
     where: {
       id: request.params.id,
     },
   }).catch((err) => {
     throw new DBError(
-      'Sorry, cannot delete your account! Iosif Stalin not approving!',
+      'Sorry, cannot delete your account! Local authoritarian government not approving such action!',
       err.stack
     );
   });
   if (!isDestroyed) {
-    Boom.notFound("User with such id wasn't found!");
+    return Boom.notFound("User with such id wasn't found!");
   }
   return 'User succesfully deleted!';
 };
@@ -92,7 +92,7 @@ module.exports = {
   registrationHandler,
   loginHandler,
   cabinetPageHandler,
-  getAllUsersHanlder,
+  getAllUsersHandler,
   getUserByIdHandler,
   updateUserPasswordHandler,
 };

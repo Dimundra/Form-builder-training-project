@@ -24,7 +24,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Form.associate = ({ User }) => {
-    Form.belongsTo(User);
+    Form.belongsTo(User, {
+      foreignKey: 'user_id',
+    });
   };
 
   return Form;

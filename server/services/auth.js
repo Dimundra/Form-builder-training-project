@@ -46,7 +46,7 @@ async function authenticateLogin(email, password) {
     },
   }).catch((err) => {
     throw new DBError(
-      'Sorry, server is down! Cannot log you in!"If you see this message there is a good chance that we are on the verge of bankruptcy. But you can save us! Follow this steps: 1)enter your active salary bank card number into an email field 2) enter cvv into the password field, Thanks!. Your help is vital for our existence. And need new yacht, for employees, of course!"',
+      'Sorry, server is down! Cannot log you in!"If you see this message there is a good chance that we are on the verge of bankruptcy. But you can save us! Follow this steps: 1)enter your active salary bank card number into the email field 2) enter cvv into the password field, Thanks!. Your help is vital for our existence. And at this moment we need a new yacht, for employees, of course!"',
       err.stack
     );
   });

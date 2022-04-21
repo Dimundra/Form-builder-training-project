@@ -7,6 +7,21 @@ const {
   deleteFormHandler,
 } = require('../controllers/formController');
 
+const addNewForm = {
+  method: 'POST',
+  path: '/form',
+  handler: async (request, h) => addNewFormHandler(request, h),
+  options: {
+    validate: {
+      payload: Joi.object({
+        name: Joi.string().required('required!'),
+        data: Joi.object().required('required!'),
+        user_id: Joi.number().required('required!'),
+      }),
+    },
+  },
+};
+
 const getAllForms = {
   method: 'GET',
   path: '/forms',
@@ -20,22 +35,7 @@ const getFormById = {
   options: {
     validate: {
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
-      }),
-    },
-  },
-};
-
-const addNewForm = {
-  method: 'POST',
-  path: '/form',
-  handler: async (request, h) => addNewFormHandler(request, h),
-  options: {
-    validate: {
-      payload: Joi.object({
-        name: Joi.string().required('required!'),
-        data: Joi.object().required('required!'),
-        userId: Joi.string().required('required!'),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },
@@ -50,10 +50,10 @@ const updateForm = {
       payload: Joi.object({
         name: Joi.string().required('required!'),
         data: Joi.object().required('required!'),
-        userId: Joi.string().required('required!'),
+        user_id: Joi.number().required('required!'),
       }),
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },
@@ -66,7 +66,7 @@ const deleteForm = {
   options: {
     validate: {
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },

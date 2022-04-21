@@ -2,7 +2,7 @@ const Joi = require('joi');
 const {
   loginHandler,
   cabinetPageHandler,
-  getAllUsersHanlder,
+  getAllUsersHandler,
   getUserByIdHandler,
   registrationHandler,
   updateUserPasswordHandler,
@@ -20,7 +20,7 @@ const registration = {
         email: Joi.string().required('required!').email(),
         password: Joi.string()
           .required('required')
-          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)),
       }),
     },
   },
@@ -37,7 +37,7 @@ const loginRoute = {
         email: Joi.string().required('required!').email(),
         password: Joi.string()
           .required('required')
-          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)),
       }),
     },
   },
@@ -55,7 +55,7 @@ const cabinetRoute = {
 const getAllUsers = {
   method: 'GET',
   path: '/users',
-  handler: async (request, h) => getAllUsersHanlder(request, h),
+  handler: async (request, h) => getAllUsersHandler(request, h),
 };
 
 const getUserById = {
@@ -65,7 +65,7 @@ const getUserById = {
   options: {
     validate: {
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },
@@ -80,10 +80,10 @@ const updateUserPassword = {
       payload: Joi.object({
         password: Joi.string()
           .required('required!')
-          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)),
+          .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)),
       }),
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },
@@ -96,7 +96,7 @@ const deleteUser = {
   options: {
     validate: {
       params: Joi.object({
-        id: Joi.string().required('id param required!'),
+        id: Joi.string().pattern(new RegExp('^[1-9][0-9]*$')),
       }),
     },
   },

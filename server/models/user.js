@@ -28,7 +28,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.associate = ({ Form }) => {
-    User.hasMany(Form);
+    User.hasMany(Form, {
+      foreignKey: 'user_id',
+    });
   };
 
   return User;
